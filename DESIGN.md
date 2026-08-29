@@ -2,7 +2,7 @@
 name: 体贴 BlueBox Brand UI/UX V2
 description: 蓝盒子品牌延展下安静、身体感、柔和、精确、克制、可信的睡眠产品界面
 colors:
-  titie-blue: "#4B6BFF"
+  titie-blue: "#1846B9"
   deep-rest-blue: "#2C3F8F"
   soft-blue-mist: "#EEF3FF"
   sleep-white: "#F7FAFF"
@@ -40,6 +40,6 @@ spacing:
 3. `docs/ui/COPY_DECK_BLUEBOX_V2.md`
 4. `docs/ui/bluebox-v2/prototype/`
 
-核心品牌表达是“体贴｜知冷暖，好好睡。”，价值观为“看见 · 回应 · 不打扰”。界面以70%冷白/蓝灰基底、20%品牌蓝结构、10%冷暖语义色构成。身体是主视觉，技术依据位于折叠层。
+核心品牌表达是“体贴｜知冷暖，好好睡。”，价值观为“看见 · 回应 · 不打扰”。主品牌蓝以蓝盒子品牌图取样色 `#1846B9` 为准；界面以70%冷白/蓝灰基底、20%品牌蓝结构、10%冷暖语义色构成。身体是主视觉，技术依据位于折叠层。
 
 禁止粉色女性科技、AI紫蓝霓虹、HUD、医学热力图、大量报表、玻璃拟态和夸张渐变。主页面继续呈现真实Engine、Control、Sensor Quality、Personalization和Validation输出；静态prototype只提供品牌、结构、组件和文案权威。

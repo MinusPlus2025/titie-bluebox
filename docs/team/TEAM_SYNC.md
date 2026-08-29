@@ -70,6 +70,7 @@ Simulated or not yet validated:
 - GitHub `main` and the existing Vercel project `titie-bluebox` are published. Production alias: `https://titie-bluebox.vercel.app`.
 - Production verification returned HTTP 200 for `/`, `/validation`, `/api/health`, `/api/evaluate`, `/api/feedback`, and `/api/validate`; the DEGRADED POST returned HOLD, intensity 0, duration 0.
 - Final UI defect fix: the shoulder/back hotspot was moved from the chest/forearm area to the visible right shoulder–upper-back junction. Regression baseline is now 66 tests passed with typecheck/build passing.
+- Brand/day-theme review: the supplied Blue Box artwork established `#1846B9` as the primary brand token. Night accents now use that blue; day mode now switches the canvas, photo treatment, rail, controls, sheets, and bottom navigation to a cold-white daytime system. The shoulder/back marker was moved again to the shoulder-blade/upper-back contour and its label now opens inward.
 
 ## Current risks and next task
 

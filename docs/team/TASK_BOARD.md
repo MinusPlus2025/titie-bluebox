@@ -46,6 +46,8 @@
 - [x] Published the Eazo integration to GitHub `main` and the existing `titie-bluebox` Vercel Production project.
 - [x] Verified HTTP 200 for all required public routes and API endpoints, including real evaluate and feedback POST requests.
 - [x] Corrected the shoulder/back hotspot position and added a coordinate regression test; 66/66 tests passed.
+- [x] Applied the supplied Blue Box `#1846B9` across active UI tokens and completed the cold-white daytime canvas/navigation treatment.
+- [x] Repositioned the shoulder/back marker to the upper-back contour with an inward label; full 66-test/typecheck/build regression passed.
 
 ## Blocked
 
