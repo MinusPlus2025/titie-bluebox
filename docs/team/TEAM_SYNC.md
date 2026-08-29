@@ -69,6 +69,7 @@ Simulated or not yet validated:
 - Eazo merge verification baseline: 65 tests passed; `npm run typecheck` and `npm run build` passed. Browser check at 390 × 844 confirmed the Eazo composition, region sheet, three tabs, and calm turn/degraded state.
 - GitHub `main` and the existing Vercel project `titie-bluebox` are published. Production alias: `https://titie-bluebox.vercel.app`.
 - Production verification returned HTTP 200 for `/`, `/validation`, `/api/health`, `/api/evaluate`, `/api/feedback`, and `/api/validate`; the DEGRADED POST returned HOLD, intensity 0, duration 0.
+- Final UI defect fix: the shoulder/back hotspot was moved from the chest/forearm area to the visible right shoulder–upper-back junction. Regression baseline is now 66 tests passed with typecheck/build passing.
 
 ## Current risks and next task
 

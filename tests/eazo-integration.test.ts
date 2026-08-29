@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { evaluationPayload, feedbackPayload, ZONE_KEY_MAP } from "../src/services/titieApi.js";
 import { engineSheet } from "../src/eazo/data/engine-view.js";
 import { evaluateThermalPreference } from "../src/api/services.js";
+import { BODY_MARKER_POSITIONS } from "../src/eazo/components/HomeScreen.jsx";
 
 const fallback = {
   region: "膝腿",
@@ -14,6 +15,10 @@ const fallback = {
 };
 
 describe("Eazo frontend integration", () => {
+  it("anchors the shoulder marker on the visible upper-back area", () => {
+    expect(BODY_MARKER_POSITIONS.shoulder).toEqual({ top: "29%", left: "77%" });
+  });
+
   it("uses the approved six-zone backend mapping", () => {
     expect(ZONE_KEY_MAP).toEqual({
       neck: "head_neck", shoulder: "shoulder_back", waist: "waist_abdomen",

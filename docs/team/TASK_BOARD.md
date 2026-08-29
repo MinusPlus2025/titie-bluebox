@@ -45,6 +45,7 @@
 - [x] Verified the final Eazo homepage, six body zones, region sheet, three bottom tabs, and degraded interaction at 390 × 844.
 - [x] Published the Eazo integration to GitHub `main` and the existing `titie-bluebox` Vercel Production project.
 - [x] Verified HTTP 200 for all required public routes and API endpoints, including real evaluate and feedback POST requests.
+- [x] Corrected the shoulder/back hotspot position and added a coordinate regression test; 66/66 tests passed.
 
 ## Blocked
 

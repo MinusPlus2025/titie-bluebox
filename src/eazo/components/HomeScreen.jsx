@@ -4,8 +4,9 @@ import figure from '../assets/sleep-figure.png'
 import { regions, ambient } from '../data/content.js'
 
 // 位置按真机预览标定（俯拍全身，人物偏中右）：肩背=右肩上背、膝腿=被子下膝盖弯曲处
-const DOT = {
-  shoulder: { top: '31%', left: '55%' },
+export const BODY_MARKER_POSITIONS = {
+  // 落在可见右肩与上背交界，避开原先误标到前臂/胸前的位置。
+  shoulder: { top: '29%', left: '77%' },
   knee: { top: '63%', left: '46%' },
 }
 
@@ -48,12 +49,12 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
       {!degrade && (
         <>
           {/* 发光圆点标注 —— 颜色表示"产品动作"：偏热→需要凉一点(蓝) / 偏凉→需要暖一点(橙) */}
-          <div className="glowdot cool" style={{ top: DOT.shoulder.top, left: DOT.shoulder.left }}
+          <div className="glowdot cool" style={{ top: BODY_MARKER_POSITIONS.shoulder.top, left: BODY_MARKER_POSITIONS.shoulder.left }}
             onClick={() => onOpenRegion('shoulder')} role="button" aria-label="肩背">
             <span className="gd-orb" />
             <span className="gd-label">肩背<span className="gl-s">偏热</span></span>
           </div>
-          <div className="glowdot warm" style={{ top: DOT.knee.top, left: DOT.knee.left }}
+          <div className="glowdot warm" style={{ top: BODY_MARKER_POSITIONS.knee.top, left: BODY_MARKER_POSITIONS.knee.left }}
             onClick={() => onOpenRegion('knee')} role="button" aria-label="膝腿">
             <span className="gd-orb" />
             <span className="gd-label">膝腿<span className="gl-s">偏凉</span></span>
