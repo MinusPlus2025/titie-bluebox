@@ -54,7 +54,8 @@
 - [x] Added responsive sheets for all nine 我的-page chevron rows with local preference persistence.
 - [x] Connected the presentation layer to real ControlCommand diagnostics and a local Vite API adapter.
 - [x] Corrected DEGRADED recovery so the demo reevaluates with GOOD sensor quality after contact stabilizes.
-- [x] Added four Eazo interaction/data-contract checks; final baseline is 70/70 tests plus passing typecheck/build.
+- [x] Added five Eazo interaction/data-contract checks; final baseline is 71/71 tests plus passing typecheck/build.
+- [x] Fixed the Production Validation adapter so real rate objects and Personalization Gain render without `NaN`.
 - [x] Recalibrated the shoulder marker and harmonized semantic markers with the supplied cool-blue visual reference.
 
 ## Blocked

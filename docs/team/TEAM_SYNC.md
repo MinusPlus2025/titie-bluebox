@@ -76,7 +76,8 @@ Simulated or not yet validated:
 - Feedback can target all six zones and the selected zone is sent through `/api/feedback`; accepted feedback is retained as running-session similar-episode evidence for subsequent evaluations.
 - All nine visible rows on the 我的 page open the existing sheet pattern; preferences persist in localStorage and device/privacy/about surfaces preserve the Prototype Simulation boundary.
 - The local Vite runtime now exposes the same API service functions as production, eliminating presentation-only fallback during local demos.
-- Final interaction regression baseline: 70 tests passed; `npm run typecheck` and `npm run build` passed.
+- Final interaction regression baseline: 71 tests passed; `npm run typecheck` and `npm run build` passed.
+- Production QA found and fixed a presentation-only Validation defect: rate objects are now rendered from their real `rate` field, strategy/metric labels are human-readable, and Personalization Gain is shown; the Validation Runner itself was unchanged.
 - Visual correction from product review: the shoulder marker is calibrated to the visible shoulder-blade area; cool/warm markers use restrained blue/orange halos and translucent blue labels aligned with the supplied reference.
 
 ## Current risks and next task

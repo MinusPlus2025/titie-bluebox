@@ -5,7 +5,8 @@
 - Six-zone Engine evaluation, shared dynamic RegionSheet, real ControlCommand diagnostics, three sleep sessions, distinct 日/周/月 views, six-zone feedback, and all 我的-page rows are implemented.
 - Local demo API requests are handled by Vite using the same `src/api/services.ts` functions used by Vercel serverless handlers.
 - DEGRADED and INVALID remain safe HOLD states. The turn demo reevaluates GOOD data after six seconds so the UI returns to the current Engine result.
-- Current verification: `npm test` → 70 passed; `npm run typecheck` → passed; `npm run build` → passed.
+- Current verification: `npm test` → 71 passed; `npm run typecheck` → passed; `npm run build` → passed.
+- Production QA fix: Validation cards now read `RateMetric.rate` and display the existing Personalization Gain; no Validation Runner logic changed.
 - Real/simulated boundary is unchanged: logic and API wiring are real software; sensors, feedback episodes, actuator execution, and validation ground truth remain Prototype Simulation.
 - Next owner action: review the deployed interaction-complete Eazo flow. Do not add features or alter the frozen core without a confirmed defect.
 

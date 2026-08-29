@@ -5,6 +5,7 @@ import { engineSheet } from "../src/eazo/data/engine-view.js";
 import { evaluateThermalPreference } from "../src/api/services.js";
 import { BODY_MARKER_POSITIONS } from "../src/eazo/components/HomeScreen.jsx";
 import { feedbackRegions, mePanels, monthStats, regions, sessions, weekStats } from "../src/eazo/data/content.js";
+import { formatValidationRate } from "../src/eazo/components/ValidationScreen.jsx";
 
 const fallback = {
   region: "膝腿",
@@ -56,6 +57,11 @@ describe("Eazo frontend integration", () => {
     const decision = evaluateThermalPreference(evaluationPayload("shoulder"));
     expect(decision.controlCommand).toMatchObject({ zone: "shoulder_back", direction: "COOL", simulation: true });
     expect(decision.diagnostics).toMatchObject({ similarEpisodeCount: expect.any(Number) });
+  });
+
+  it("formats the Validation Runner rate object instead of rendering NaN", () => {
+    expect(formatValidationRate({ numerator: 23, denominator: 30, rate: 0.7667 })).toBe("76.7%");
+    expect(formatValidationRate(0.0333)).toBe("3.3%");
   });
 
   it("builds the turn demo from a real DEGRADED engine response", () => {
