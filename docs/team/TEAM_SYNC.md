@@ -83,6 +83,7 @@ Simulated or not yet validated:
 - Product-review surface correction: the shoulder/back label now opens to the right of its hotspot so it no longer covers the face. Day-mode rail, environment chips, theme control, and monitoring pill now use restrained translucent cool-white surfaces; 390px and 320px browser checks show zero horizontal overflow.
 - The product-review correction is published on `main` in commit `797f128` and is active at `https://titie-bluebox.vercel.app/`.
 - Engine-evidence disclosure defect fixed across all six region sheets: the former 400px animated cap clipped the final evidence rows. The shared RegionSheet now uses an uncapped native disclosure inside a safe, touch-scrollable sheet body; all real Engine evidence, raw reason codes, and the Prototype Simulation badge can be reached. Regression baseline: 72 tests passed; typecheck/build passed.
+- The complete evidence disclosure fix is published on `main` in commit `446f00e` and verified in Production at `https://titie-bluebox.vercel.app/` with nine rows, matching panel client/scroll heights, zero horizontal overflow, and no console errors.
 
 ## Current risks and next task
 
