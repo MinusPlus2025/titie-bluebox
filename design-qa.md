@@ -78,3 +78,31 @@ Eazo final result: passed
 - Browser interaction QA covered all six regions, date switching, distinct 日/周/月 views, six-zone feedback submission, all nine 我的-page sheets, localStorage response, and DEGRADED safe HOLD/recovery.
 
 Final interaction addendum result: passed
+
+## 2026-08-30 product-review placement and day-surface addendum
+
+**Source visual truth**
+
+- User review capture `codex-clipboard-12c006a8-8d9a-4e2a-8125-228919a7712d.png` (712 × 1558 px): night label placement.
+- User review capture `codex-clipboard-7880fd0a-8df0-4458-94a6-48257fa782d5.png` (944 × 1618 px): day surface tone and top-HUD overflow.
+- Durable side-by-side evidence: `docs/submission/screenshots/product-review-2026-08-30/03-reference-comparison.png`.
+
+**Rendered implementation**
+
+- Night state: `docs/submission/screenshots/product-review-2026-08-30/01-night-shoulder-label.png`.
+- Day state: `docs/submission/screenshots/product-review-2026-08-30/02-day-translucent-surfaces.png`.
+- Browser CSS viewports verified at 390 × 844 and 320 × 844. The in-app-browser image capture is 624 × 803 px because of its display-density canvas; the comparison board normalizes each evidence cell to 390 × 844.
+
+**Findings and corrections**
+
+- P2 resolved: the shoulder/back copy previously opened toward the face. It now opens rightward from the hotspot and remains inside the device at 390px and 320px.
+- P2 resolved: day-mode rail, environment chips, theme control, and monitoring pill were too opaque and visually detached from the cool daytime photograph. They now share low-opacity cool-white surfaces, fine blue borders, and minimal shadow.
+- P2 resolved: environment chips were too wide at phone sizes. Compact spacing and type keep both chips within the HUD safe area with no wrapping.
+- No P0/P1/P2 visual mismatch remains for this review scope. Brand colors, photograph, copy, domain output, and interaction behavior were not redefined.
+
+**Measured responsive evidence**
+
+- 390px: temperature chip right edge 156.6px, humidity chip right edge 245.4px, shoulder label right edge 368.4px, horizontal overflow 0px.
+- 320px: temperature chip right edge 145.6px, humidity chip right edge 229.2px, shoulder label right edge 315.2px, horizontal overflow 0px.
+
+final result: passed

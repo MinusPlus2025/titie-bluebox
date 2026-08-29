@@ -58,6 +58,7 @@
 - [x] Fixed the Production Validation adapter so real rate objects and Personalization Gain render without `NaN`.
 - [x] Recalibrated the shoulder marker and harmonized semantic markers with the supplied cool-blue visual reference.
 - [x] Fixed mobile HUD chip overflow at 390px/320px and moved the shoulder marker right to the reviewed shoulder-blade position.
+- [x] Moved the shoulder/back label to the hotspot's right side and harmonized day-mode rail/chip/toggle/monitor surfaces with translucent cool-white styling; reverified 390px/320px with zero horizontal overflow.
 
 ## Blocked
 
@@ -65,4 +66,4 @@
 
 ## Next
 
-- Publish the interaction-complete commit to the existing `titie-bluebox` production project, verify every required route, then stop for product-owner review.
+- Publish this product-review correction to the existing `titie-bluebox` production project, verify the reviewed phone states, then stop for product-owner review.
