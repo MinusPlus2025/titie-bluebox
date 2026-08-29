@@ -1,6 +1,6 @@
 # TEAM SYNC
 
-Last updated: 2026-08-29  
+Last updated: 2026-08-30
 Current phase: Final Release — product interaction hardening complete
 
 ## Verified baseline
@@ -79,6 +79,7 @@ Simulated or not yet validated:
 - Final interaction regression baseline: 71 tests passed; `npm run typecheck` and `npm run build` passed.
 - Production QA found and fixed a presentation-only Validation defect: rate objects are now rendered from their real `rate` field, strategy/metric labels are human-readable, and Personalization Gain is shown; the Validation Runner itself was unchanged.
 - Visual correction from product review: the shoulder marker is calibrated to the visible shoulder-blade area; cool/warm markers use restrained blue/orange halos and translucent blue labels aligned with the supplied reference.
+- Mobile layout defect fix: the temperature/humidity chips now use a compact, non-wrapping safe-area layout that stays within the viewport at both 390px and 320px; the shoulder marker moved right from 68% to 76% per product review.
 
 ## Current risks and next task
 

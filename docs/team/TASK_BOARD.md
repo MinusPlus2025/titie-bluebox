@@ -57,6 +57,7 @@
 - [x] Added five Eazo interaction/data-contract checks; final baseline is 71/71 tests plus passing typecheck/build.
 - [x] Fixed the Production Validation adapter so real rate objects and Personalization Gain render without `NaN`.
 - [x] Recalibrated the shoulder marker and harmonized semantic markers with the supplied cool-blue visual reference.
+- [x] Fixed mobile HUD chip overflow at 390px/320px and moved the shoulder marker right to the reviewed shoulder-blade position.
 
 ## Blocked
 

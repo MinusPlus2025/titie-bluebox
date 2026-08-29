@@ -18,7 +18,7 @@ const fallback = {
 
 describe("Eazo frontend integration", () => {
   it("anchors the shoulder marker on the visible upper-back area", () => {
-    expect(BODY_MARKER_POSITIONS.shoulder).toEqual({ top: "25.5%", left: "68%" });
+    expect(BODY_MARKER_POSITIONS.shoulder).toEqual({ top: "25.5%", left: "76%" });
   });
 
   it("uses the approved six-zone backend mapping", () => {

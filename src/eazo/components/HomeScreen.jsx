@@ -5,8 +5,8 @@ import { regions, ambient } from '../data/content.js'
 
 // 位置按真机预览标定（俯拍全身，人物偏中右）：肩背=右肩上背、膝腿=被子下膝盖弯曲处
 export const BODY_MARKER_POSITIONS = {
-  // 肩背点落在肩胛上背，不落在上臂；标签向左展开避免超出画面。
-  shoulder: { top: '25.5%', left: '68%' },
+  // 位置按当前睡眠照片标定：肩背点向右落在可见肩胛外侧，标签向左展开。
+  shoulder: { top: '25.5%', left: '76%' },
   knee: { top: '63%', left: '46%' },
 }
 
