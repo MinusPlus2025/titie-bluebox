@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-29  
-Current phase: Final Release — Eazo UI merged; GitHub & Vercel publication pending
+Current phase: Final Release — Eazo UI published and Production verified
 
 ## Verified baseline
 
@@ -67,6 +67,8 @@ Simulated or not yet validated:
 - All frontend network traffic is centralized in `src/services/titieApi.js`; evaluate, feedback, health, and validation retain the existing serverless/domain contracts.
 - The turn demo posts a real DEGRADED evaluation and requires HOLD, intensity 0, and duration 0; INVALID follows the same safe-stop boundary.
 - Eazo merge verification baseline: 65 tests passed; `npm run typecheck` and `npm run build` passed. Browser check at 390 × 844 confirmed the Eazo composition, region sheet, three tabs, and calm turn/degraded state.
+- GitHub `main` and the existing Vercel project `titie-bluebox` are published. Production alias: `https://titie-bluebox.vercel.app`.
+- Production verification returned HTTP 200 for `/`, `/validation`, `/api/health`, `/api/evaluate`, `/api/feedback`, and `/api/validate`; the DEGRADED POST returned HOLD, intensity 0, duration 0.
 
 ## Current risks and next task
 
@@ -74,4 +76,4 @@ Simulated or not yet validated:
 - No real hardware timing, thermal-response, comfort, or safety evidence exists yet.
 - The fixed demo dataset is intentionally small and should not be generalized to population performance.
 - Legacy V1 reference screenshots remain archived but no longer define the active visual system.
-- Next: publish the verified Eazo merge commit to GitHub and the existing Vercel Production project, then verify all public routes and API methods.
+- Next: stop feature work and wait for product-owner review. Any subsequent change should be a confirmed release defect only.

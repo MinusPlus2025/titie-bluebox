@@ -2,7 +2,7 @@
 
 ## In progress
 
-- Publish the release commit to GitHub and Vercel Production; verify all public routes.
+- None. Final release is waiting for product-owner review.
 
 ## Completed
 
@@ -43,6 +43,8 @@
 - [x] Connected the turn interaction to a real DEGRADED evaluate request with HOLD/intensity 0/duration 0 enforcement.
 - [x] Added Eazo integration and safety tests; final local baseline is 65/65 tests plus passing typecheck/build.
 - [x] Verified the final Eazo homepage, six body zones, region sheet, three bottom tabs, and degraded interaction at 390 × 844.
+- [x] Published the Eazo integration to GitHub `main` and the existing `titie-bluebox` Vercel Production project.
+- [x] Verified HTTP 200 for all required public routes and API endpoints, including real evaluate and feedback POST requests.
 
 ## Blocked
 
@@ -50,5 +52,4 @@
 
 ## Next
 
-- Complete GitHub/Vercel publication and production route verification.
 - Do not self-initiate new features or core-model work after release.
