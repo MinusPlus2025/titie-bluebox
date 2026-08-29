@@ -1,0 +1,73 @@
+# TEAM SYNC
+
+Last updated: 2026-08-29  
+Current phase: Final Release — GitHub & Vercel Production
+
+## Verified baseline
+
+- Phase 1: 20 tests passed.
+- Phase 2: 40 tests passed.
+- `npm run typecheck`: passed.
+- `npm run build`: passed.
+- Validation Runner: completed.
+- Digital Twin Control Contract: completed.
+- Sensor Quality degradation: completed.
+- Similar Episode Personalization: completed.
+- Phase 3: seven-screen browser Demo completed.
+- Phase 3 verification baseline: 55 tests passed; `npm run typecheck` and `npm run build` passed.
+- Desktop and mobile browser checks: 7 sections, no horizontal overflow, no console warnings/errors.
+- Phase 3 Final UI: 8-screen product flow implemented from the approved Product Flow V1.
+- Final UI verification baseline: 55 tests passed; `npm run typecheck` and `npm run build` passed.
+- 1440px and 390px browser checks: 8 sections, no page-level horizontal overflow, no console warnings/errors.
+
+## Functional freeze
+
+The Phase 1/2 domain core is frozen. Do not increase algorithm complexity unless a bug or a concrete challenge-coverage gap is demonstrated.
+
+## Real and simulated boundary
+
+Real software implementation:
+
+- deterministic sensor simulation and feature extraction;
+- thermal preference decisions and explanations;
+- sensor-quality degradation and safe HOLD;
+- similar-episode feedback retrieval;
+- actuator capability mapping and control commands;
+- three-strategy validation metrics and automated tests.
+
+Simulated or not yet validated:
+
+- all sensor observations and preference ground truth;
+- user feedback episodes used in the demo;
+- actuator execution and physical thermal effect;
+- validation results, which are not clinical or field evidence;
+- there is no real human-subject, hardware-loop, clinical, or field validation.
+
+## Phase 3 delivered
+
+- Tonight → Body → Zone Detail → 体贴正在做什么 → Night Timeline → Morning Feedback → Personalization → Validation flow.
+- Body status, explanations, actuator commands, personalization rerun, and validation metrics all originate from existing tested modules.
+- Engineering fields live in expandable details; primary surfaces use human language.
+- Body automatically summarizes HOLD-majority state and identifies the zones that need attention.
+- DEGRADED/INVALID behavior is presented as calm observation and safe non-intervention rather than an error alarm.
+- Reference V1 UI reconstruction completed: top navigation only, 55/45 Tonight hero, abstract top-down bed/sleeper, same-page Zone Drawer, inline current adjustment and Night Timeline, Morning Feedback/Personalization, and strategy-first Validation.
+- Final review screenshots: `docs/submission/screenshots/reference-v1/01-tonight.png` through `06-technical-validation.png`.
+- Browser verification at 1440 × 1000 and 390 × 844 completed; all primary interactions passed and the console had no warnings/errors.
+- Design QA report: `design-qa.md`, final result `passed`.
+- BlueBox Brand UI/UX V2 migration completed. The V2 brand system, UI specification, copy deck, static prototype, and logo are now stored under `docs/brand/`, `docs/ui/`, and `public/assets/`.
+- BlueBox V2 is the current visual source of truth; the Phase 1/2 domain core remains unchanged.
+- BlueBox V2 verification baseline: 56 tests passed; `npm run typecheck` and `npm run build` passed.
+- Browser checks passed at 1440 × 1000 and 390 × 844; real Engine, Control, Sensor Quality, Personalization, and Validation outputs remained connected, with no console warnings/errors.
+- V2 browser evidence: `docs/submission/screenshots/bluebox-v2/`.
+- Final full-stack release adapter: `/api/health`, `/api/evaluate`, `/api/feedback`, and `/api/validate` reuse the frozen domain modules.
+- Production deep link `/validation` is configured and opens the existing Technical Validation surface.
+- Final release baseline: 61 tests passed; `npm run typecheck` and `npm run build` passed.
+- API contract tests confirm both DEGRADED and INVALID sensor inputs return HOLD with intensity 0.
+
+## Current risks and next task
+
+- All observations, feedback, ground truth, and actuator behavior remain synthetic.
+- No real hardware timing, thermal-response, comfort, or safety evidence exists yet.
+- The fixed demo dataset is intentionally small and should not be generalized to population performance.
+- Legacy V1 reference screenshots remain archived but no longer define the active visual system.
+- Next: publish the verified commit to GitHub and Vercel Production, then verify all public routes.

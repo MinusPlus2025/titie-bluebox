@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>体贴｜知冷暖，好好睡。</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 96 96" width="44" height="44">
+            <rect x="10" y="10" width="76" height="76" rx="24" fill="#4B6BFF"/>
+            <path d="M28 55c8-17 26-21 40-8 3 3 6 7 8 11" fill="none" stroke="#F7FAFF" stroke-width="7" stroke-linecap="round"/>
+            <path d="M28 59c8 8 18 11 28 11 10 0 17-3 22-8" fill="none" stroke="#DCE5FF" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <h1>体贴</h1>
+          <p>知冷暖，好好睡。</p>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="主导航">
+        <button class="tab is-active" data-tab="tonight">今晚</button>
+        <button class="tab" data-tab="morning">早晨反馈</button>
+        <button class="tab" data-tab="validation">技术验证</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="view-tonight" class="view is-active">
+        <div class="meta-row">
+          <span>23:48</span>
+          <span>室温 24.1°C</span>
+          <span>湿度 52%</span>
+        </div>
+
+        <div class="hero-grid">
+          <section class="sleep-stage card">
+            <div class="sleep-illustration" id="body-map" aria-label="身体区域图">
+              <div class="bed-frame">
+                <div class="pillow"></div>
+                <button class="zone zone-head neutral" data-zone="头颈">头颈<span>刚刚好</span></button>
+                <button class="zone zone-shoulder cool" data-zone="肩背">肩背<span>建议凉一点</span></button>
+                <button class="zone zone-abdomen neutral" data-zone="腰腹">腰腹<span>刚刚好</span></button>
+                <button class="zone zone-thigh neutral" data-zone="大腿">大腿<span>刚刚好</span></button>
+                <button class="zone zone-knee warm" data-zone="膝腿">膝腿<span>建议暖一点</span></button>
+                <button class="zone zone-feet neutral" data-zone="足部">足部<span>刚刚好</span></button>
+                <div class="sleep-body" aria-hidden="true">
+                  <div class="head"></div>
+                  <div class="blanket"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="hero-side">
+            <div class="summary card">
+              <div class="eyebrow">Tonight</div>
+              <h2>今晚整体很稳定</h2>
+              <p class="lead">2个位置需要轻微调整</p>
+              <ul class="focus-list">
+                <li><strong>膝腿</strong><span>建议暖一点</span></li>
+                <li><strong>肩背</strong><span>建议凉一点</span></li>
+              </ul>
+            </div>
+
+            <div class="actions card">
+              <div class="section-title">正在调整</div>
+              <div class="action-row"><strong>膝腿</strong><span>轻轻暖一下 · 8分钟</span></div>
+              <div class="action-row"><strong>肩背</strong><span>稍微凉一点 · 5分钟</span></div>
+              <div class="action-row"><strong>其他位置</strong><span>保持刚刚好</span></div>
+              <p class="small-note">5分钟后再判断</p>
+            </div>
+          </section>
+        </div>
+
+        <section class="timeline-wrap card">
+          <div class="section-title">这一晚</div>
+          <div class="timeline">
+            <div class="timeline-item"><span>01:42</span><p>膝腿开始慢慢变凉</p></div>
+            <div class="timeline-item"><span>01:57</span><p>轻轻暖了一下</p></div>
+            <div class="timeline-item"><span>02:05</span><p>回到刚刚好</p></div>
+            <div class="timeline-item degraded"><span>03:26</span><p>身体位置变化，数据暂时不够稳定</p></div>
+            <div class="timeline-item"><span>03:26</span><p>没有继续调整</p></div>
+          </div>
+          <p class="principle">拿不准的时候，少做一点。</p>
+        </section>
+      </section>
+
+      <section id="view-morning" class="view">
+        <div class="two-col">
+          <section class="card morning-body">
+            <div class="section-title">昨晚，有哪里还想调整吗？</div>
+            <p class="helper">如果没有，也可以什么都不改。</p>
+            <div class="mini-bed">
+              <div class="mini-card">点击膝腿进行反馈</div>
+            </div>
+          </section>
+
+          <section class="card feedback-card">
+            <div class="section-title">如果再来一次，你希望膝腿？</div>
+            <div class="feedback-buttons">
+              <button class="choice">暖一点</button>
+              <button class="choice selected">刚刚好</button>
+              <button class="choice">凉一点</button>
+            </div>
+            <div class="memory-box">
+              <h3>记住了。</h3>
+              <p>下次遇到相似状态，会把这次选择考虑进去。</p>
+            </div>
+            <div class="episode-box">
+              <div class="section-title small">过去相似的5个时刻</div>
+              <div class="episode-row"><span>暖一点</span><span>●●●●</span></div>
+              <div class="episode-row"><span>刚刚好</span><span>●</span></div>
+              <div class="episode-row"><span>凉一点</span><span></span></div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="view-validation" class="view">
+        <div class="validation-head">
+          <div class="eyebrow">Validation</div>
+          <h2>为什么不是一个温度？</h2>
+          <p>先看方法差异，再看结果。</p>
+        </div>
+
+        <div class="strategy-grid">
+          <article class="strategy card">
+            <h3>整床恒温</h3>
+            <p>一个地方变化，整张床一起调。</p>
+            <span class="tag">容易过度调整</span>
+          </article>
+          <article class="strategy card">
+            <h3>固定分区</h3>
+            <p>知道不同位置，但每个人使用同一阈值。</p>
+            <span class="tag">不能学习个人差异</span>
+          </article>
+          <article class="strategy card featured">
+            <h3>体贴</h3>
+            <p>身体区域 + 当下变化 + 个人反馈。</p>
+            <span class="tag">只调整真正需要的地方</span>
+          </article>
+        </div>
+
+        <div class="metric-table card">
+          <div class="metric-row header">
+            <span></span><span>整床恒温</span><span>固定分区</span><span>体贴</span>
+          </div>
+          <div class="metric-row"><span>和个人偏好一致</span><span>60%</span><span>96.7%</span><span class="best">100%</span></div>
+          <div class="metric-row"><span>不必要调整</span><span>30%</span><span>0%</span><span class="best">0%</span></div>
+          <div class="metric-row"><span>个人反馈带来的改善</span><span>—</span><span>—</span><span class="best">+3.3pp</span></div>
+        </div>
+
+        <div class="disclaimer card">
+          <strong>原型模拟结果</strong>
+          <p>用于验证控制策略，不代表真实人体或临床效果。</p>
+        </div>
+      </section>
+    </main>
+
+    <aside class="drawer" id="zone-drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <div>
+          <div class="eyebrow">区域细节</div>
+          <h3 id="drawer-zone-title">膝腿</h3>
+          <p class="drawer-state">建议暖一点</p>
+        </div>
+        <button class="drawer-close" id="close-drawer">关闭</button>
+      </div>
+      <div class="drawer-body">
+        <ul class="reason-list">
+          <li>最近15分钟，这里的温度在慢慢下降。</li>
+          <li>当前状态和过去选择“暖一点”时比较接近。</li>
+          <li>房间整体变化不大，所以先不调整整张床。</li>
+        </ul>
+        <button class="primary">轻轻暖一下</button>
+        <p class="small-note">约8分钟 · 5分钟后再判断</p>
+        <details>
+          <summary>查看判断依据</summary>
+          <div class="tech-box">
+            <div>Sensor quality：GOOD</div>
+            <div>Confidence：0.84</div>
+            <div>Top-K similar episodes：5</div>
+            <div>Trend：-0.3°C / 15min</div>
+          </div>
+        </details>
+      </div>
+    </aside>
+  </div>
+
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
+
