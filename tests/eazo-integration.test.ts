@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 
 import { evaluationPayload, feedbackPayload, ZONE_KEY_MAP } from "../src/services/titieApi.js";
 import { engineSheet } from "../src/eazo/data/engine-view.js";
 import { evaluateThermalPreference } from "../src/api/services.js";
 import { BODY_MARKER_POSITIONS } from "../src/eazo/components/HomeScreen.jsx";
+import RegionSheet from "../src/eazo/components/RegionSheet.jsx";
 import { feedbackRegions, mePanels, monthStats, regions, sessions, weekStats } from "../src/eazo/data/content.js";
 import { formatValidationRate } from "../src/eazo/components/ValidationScreen.jsx";
 
@@ -57,6 +60,21 @@ describe("Eazo frontend integration", () => {
     const decision = evaluateThermalPreference(evaluationPayload("shoulder"));
     expect(decision.controlCommand).toMatchObject({ zone: "shoulder_back", direction: "COOL", simulation: true });
     expect(decision.diagnostics).toMatchObject({ similarEpisodeCount: expect.any(Number) });
+  });
+
+  it("renders complete engine evidence inside an uncapped native disclosure", () => {
+    const decision = evaluateThermalPreference(evaluationPayload("shoulder"));
+    const html = renderToStaticMarkup(createElement(RegionSheet, {
+      regionKey: "shoulder",
+      decision,
+      apiFallback: false,
+      onClose: () => undefined,
+    }));
+
+    expect(html).toContain('<details class="disclose">');
+    expect(html).toContain('<summary class="disclose-trigger">');
+    expect((html.match(/class="evidence-row"/g) ?? [])).toHaveLength(9);
+    expect(html).toContain("原始判断理由");
   });
 
   it("formats the Validation Runner rate object instead of rendering NaN", () => {

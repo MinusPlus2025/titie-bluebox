@@ -218,7 +218,7 @@ body{
   max-height:86%;display:flex;flex-direction:column;}
 .sheet.open{transform:translateY(0);}
 .sheet-grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:12px auto 4px;flex:0 0 auto;}
-.sheet-body{overflow-y:auto;padding:8px 24px 30px;}
+.sheet-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:8px 24px max(30px,env(safe-area-inset-bottom));}
 .sheet-body::-webkit-scrollbar{width:0;}
 .sheet-head{display:flex;align-items:center;gap:12px;margin:6px 0 4px;}
 .sheet-head .sh-ic{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex:0 0 42px;background:rgba(240,150,90,.16);}
@@ -251,11 +251,11 @@ body{
 .sheet-action.act-steady .sa-time{font-size:12.5px;color:var(--steady-ink);opacity:.85;margin-top:2px;}
 .sheet-hint{font-size:13px;color:var(--ink-3);text-align:center;margin-top:4px;}
 .disclose{margin-top:20px;border-top:1px solid var(--line-soft);padding-top:14px;}
-.disclose-trigger{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:13.5px;color:var(--ink-2);font-weight:500;}
+.disclose-trigger{display:flex;align-items:center;justify-content:space-between;min-height:44px;cursor:pointer;font-size:13.5px;color:var(--ink-2);font-weight:500;list-style:none;}
+.disclose-trigger::-webkit-details-marker{display:none;}
 .disclose-trigger svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;transition:transform .25s;}
-.disclose-trigger.open svg{transform:rotate(90deg);}
-.disclose-panel{overflow:hidden;max-height:0;}
-.disclose-panel.open{max-height:400px;}
+.disclose[open] .disclose-trigger svg{transform:rotate(90deg);}
+.disclose-panel{overflow:visible;padding-bottom:4px;}
 .evidence-list{padding-top:14px;display:flex;flex-direction:column;gap:2px;}
 .evidence-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line-soft);}
 .evidence-row:last-child{border-bottom:none;}

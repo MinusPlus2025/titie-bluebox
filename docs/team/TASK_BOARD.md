@@ -59,6 +59,7 @@
 - [x] Recalibrated the shoulder marker and harmonized semantic markers with the supplied cool-blue visual reference.
 - [x] Fixed mobile HUD chip overflow at 390px/320px and moved the shoulder marker right to the reviewed shoulder-blade position.
 - [x] Moved the shoulder/back label to the hotspot's right side and harmonized day-mode rail/chip/toggle/monitor surfaces with translucent cool-white styling; reverified 390px/320px with zero horizontal overflow.
+- [x] Removed the shared 400px evidence-panel cap, migrated RegionSheet evidence to an accessible native disclosure, and verified the final raw-reason row plus Prototype Simulation badge are reachable at 390 × 844; 72/72 tests passed.
 
 ## Blocked
 

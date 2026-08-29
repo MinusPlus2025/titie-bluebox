@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Icon from './Icon.jsx'
 import { sheets } from '../data/content.js'
 import { actionTone, engineSheet } from '../data/engine-view.js'
 
 export default function RegionSheet({ regionKey, decision, apiFallback, onClose }) {
-  const [showEvidence, setShowEvidence] = useState(false)
   const open = !!regionKey
   const data = regionKey ? engineSheet(decision, sheets[regionKey]) : null
   const tone = decision ? actionTone(decision) : regionKey === 'knee' ? 'warm' : regionKey === 'shoulder' ? 'cool' : 'steady'
-
-  // reset disclosure whenever a new region opens
-  useEffect(() => { if (regionKey) setShowEvidence(false) }, [regionKey])
 
   return (
     <>
@@ -43,12 +39,12 @@ export default function RegionSheet({ regionKey, decision, apiFallback, onClose 
             <div className="sheet-hint">{data.hint}</div>
 
             {/* 弱入口：查看判断依据 */}
-            <div className="disclose">
-              <div className={'disclose-trigger' + (showEvidence ? ' open' : '')} onClick={() => setShowEvidence((v) => !v)} role="button">
+            <details className="disclose" key={regionKey}>
+              <summary className="disclose-trigger">
                 <span>查看判断依据</span>
                 <Icon name="chev" />
-              </div>
-              <div className={'disclose-panel' + (showEvidence ? ' open' : '')}>
+              </summary>
+              <div className="disclose-panel">
                 <div className="evidence-list">
                   {data.evidence.map(([k, v]) => (
                     <div key={k} className="evidence-row">
@@ -59,7 +55,7 @@ export default function RegionSheet({ regionKey, decision, apiFallback, onClose 
                 </div>
                 <span className="sim-badge"><span className="sb-dot2" />Prototype Simulation{apiFallback ? ' · API fallback' : ''}</span>
               </div>
-            </div>
+            </details>
           </div>
         )}
       </div>

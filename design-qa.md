@@ -57,6 +57,17 @@ The combined comparison verifies the reference hierarchy: light horizontal navig
 
 final result: passed
 
+## 2026-08-30 complete evidence disclosure addendum
+
+- Review source: `codex-clipboard-9b6b54e6-5ab4-4d2d-8d05-3d10d8ac31e6.png`.
+- Root cause: `.disclose-panel.open` imposed a fixed `max-height: 400px` while a complete GOOD decision needs nine evidence rows plus the Prototype Simulation badge. The panel itself clipped content before the enclosing sheet scroller could expose it.
+- Correction: all six zone sheets now share a native `<details>/<summary>` disclosure with no content-height cap. The sheet body has an explicit zero flex minimum, contained touch scrolling, momentum scrolling, and safe-area bottom padding.
+- 390 × 844 browser measurement: evidence panel `clientHeight` and `scrollHeight` both 484px; enclosing sheet scroll range 195px; after scrolling, the raw reason row ends at 747px and the simulation badge ends at 788px within the 822px rendered viewport.
+- Verification screenshot: `docs/submission/screenshots/evidence-disclosure-2026-08-30/01-complete-engine-evidence.png`.
+- Automated contract: RegionSheet renders the uncapped native disclosure and all nine real Engine evidence rows. Full baseline: 72 tests passed; typecheck and build passed.
+
+final result: passed
+
 ## Eazo final release addendum
 
 Reference: `https://3000-ii7eqkedmnm19ueycesoe.e2b.app`
