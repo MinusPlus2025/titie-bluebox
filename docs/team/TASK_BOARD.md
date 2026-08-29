@@ -66,4 +66,4 @@
 
 ## Next
 
-- Publish this product-review correction to the existing `titie-bluebox` production project, verify the reviewed phone states, then stop for product-owner review.
+- Stop feature and visual work; wait for the next product-owner screen review.

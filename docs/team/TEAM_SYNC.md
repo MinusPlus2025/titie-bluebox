@@ -81,6 +81,7 @@ Simulated or not yet validated:
 - Visual correction from product review: the shoulder marker is calibrated to the visible shoulder-blade area; cool/warm markers use restrained blue/orange halos and translucent blue labels aligned with the supplied reference.
 - Mobile layout defect fix: the temperature/humidity chips now use a compact, non-wrapping safe-area layout that stays within the viewport at both 390px and 320px; the shoulder marker moved right from 68% to 76% per product review.
 - Product-review surface correction: the shoulder/back label now opens to the right of its hotspot so it no longer covers the face. Day-mode rail, environment chips, theme control, and monitoring pill now use restrained translucent cool-white surfaces; 390px and 320px browser checks show zero horizontal overflow.
+- The product-review correction is published on `main` in commit `797f128` and is active at `https://titie-bluebox.vercel.app/`.
 
 ## Current risks and next task
 
