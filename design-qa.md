@@ -68,3 +68,13 @@ Reference: `https://3000-ii7eqkedmnm19ueycesoe.e2b.app`
 - Old V1/BlueBox V2 UI remains archived but is not the active entry point.
 
 Eazo final result: passed
+
+## Final interaction and marker review addendum
+
+- Product-review references: `codex-clipboard-fc47ad5e-b4cb-4e40-96e1-ecea162f4636.png` and `codex-clipboard-7cbfba30-4e24-4a25-ac30-0725b1ac76c5.png` supplied in the review thread.
+- Shoulder hotspot moved from the upper arm to the visible shoulder-blade area of the active photograph.
+- Warm/cool points now use a small white center, restrained orange/brand-blue halo, and translucent blue label chip; state remains legible by text as well as color.
+- Day mode retains the same Blue Box palette with a cooler, less washed photo treatment and coordinated navigation/surface colors.
+- Browser interaction QA covered all six regions, date switching, distinct 日/周/月 views, six-zone feedback submission, all nine 我的-page sheets, localStorage response, and DEGRADED safe HOLD/recovery.
+
+Final interaction addendum result: passed

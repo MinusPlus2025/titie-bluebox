@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Icon from './Icon.jsx'
-import { feedback as fb } from '../data/content.js'
+import { feedback as fb, feedbackRegions } from '../data/content.js'
 import { feedbackPayload, titieApi } from '../../services/titieApi.js'
 
 export default function FeedbackScreen({ onClose }) {
@@ -8,11 +8,12 @@ export default function FeedbackScreen({ onClose }) {
   const [done, setDone] = useState(false)
   const [sending, setSending] = useState(false)
   const [apiFallback, setApiFallback] = useState(false)
+  const [region, setRegion] = useState('knee')
 
   async function submit() {
     if (!sel || sending) return
     setSending(true)
-    try { await titieApi.submitFeedback(feedbackPayload(sel)) }
+    try { await titieApi.submitFeedback(feedbackPayload(sel, region)) }
     catch { setApiFallback(true) }
     finally { setSending(false); setDone(true) }
   }
@@ -37,8 +38,12 @@ export default function FeedbackScreen({ onClose }) {
       </div>
 
       <div className="fb-region">
-        <span>选择</span>
-        <span className="fbr-chip">{fb.region}</span>
+        <span>选择位置</span>
+      </div>
+      <div className="fb-region-grid" role="group" aria-label="反馈身体区域">
+        {feedbackRegions.map((item) => (
+          <button key={item.key} className={'fbr-chip' + (region === item.key ? ' active' : '')} onClick={() => setRegion(item.key)}>{item.name}</button>
+        ))}
       </div>
 
       <div className="fb-q">{fb.question}</div>

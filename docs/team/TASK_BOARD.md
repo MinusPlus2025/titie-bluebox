@@ -48,6 +48,14 @@
 - [x] Corrected the shoulder/back hotspot position and added a coordinate regression test; 66/66 tests passed.
 - [x] Applied the supplied Blue Box `#1846B9` across active UI tokens and completed the cold-white daytime canvas/navigation treatment.
 - [x] Repositioned the shoulder/back marker to the upper-back contour with an inward label; full 66-test/typecheck/build regression passed.
+- [x] Made all six body-zone rail entries open the shared live Engine RegionSheet, including neutral HOLD zones.
+- [x] Added three switchable Prototype Simulation sleep sessions and distinct 日/周/月 views.
+- [x] Added six-zone feedback selection and running-session Similar Episode carry-forward.
+- [x] Added responsive sheets for all nine 我的-page chevron rows with local preference persistence.
+- [x] Connected the presentation layer to real ControlCommand diagnostics and a local Vite API adapter.
+- [x] Corrected DEGRADED recovery so the demo reevaluates with GOOD sensor quality after contact stabilizes.
+- [x] Added four Eazo interaction/data-contract checks; final baseline is 70/70 tests plus passing typecheck/build.
+- [x] Recalibrated the shoulder marker and harmonized semantic markers with the supplied cool-blue visual reference.
 
 ## Blocked
 
@@ -55,4 +63,4 @@
 
 ## Next
 
-- Do not self-initiate new features or core-model work after release.
+- Publish the interaction-complete commit to the existing `titie-bluebox` production project, verify every required route, then stop for product-owner review.

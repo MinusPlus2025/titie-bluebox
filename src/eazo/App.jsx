@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { StatusBar, BottomNav } from './components/Chrome.jsx'
 import HomeScreen from './components/HomeScreen.jsx'
 import SleepScreen from './components/SleepScreen.jsx'
@@ -6,7 +6,7 @@ import MeScreen from './components/MeScreen.jsx'
 import RegionSheet from './components/RegionSheet.jsx'
 import FeedbackScreen from './components/FeedbackScreen.jsx'
 import ValidationScreen from './components/ValidationScreen.jsx'
-import { evaluateZone } from '../services/titieApi.js'
+import { evaluateZone, ZONE_KEYS } from '../services/titieApi.js'
 
 export default function App() {
   const [tab, setTab] = useState('titie')
@@ -17,19 +17,34 @@ export default function App() {
   const [apiFallback, setApiFallback] = useState(false)
   const [validationRoute, setValidationRoute] = useState(window.location.pathname === '/validation')
   const [theme, setTheme] = useState('night')     // 'night' 冷蓝 / 'day' 暖白
+  const turnTimer = useRef(null)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
   useEffect(() => {
-    Promise.all(['shoulder', 'knee'].map(async (key) => [key, await evaluateZone(key)]))
-      .then((pairs) => setDecisions(Object.fromEntries(pairs)))
-      .catch(() => setApiFallback(true))
+    Promise.all(ZONE_KEYS.map(async (key) => {
+      try { return [key, await evaluateZone(key)] }
+      catch { setApiFallback(true); return null }
+    })).then((pairs) => setDecisions(Object.fromEntries(pairs.filter(Boolean))))
     const onPop = () => setValidationRoute(window.location.pathname === '/validation')
     window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
+    return () => {
+      window.removeEventListener('popstate', onPop)
+      if (turnTimer.current) clearTimeout(turnTimer.current)
+    }
   }, [])
+
+  async function openRegion(key) {
+    setRegion(key)
+    try {
+      const decision = await evaluateZone(key)
+      setDecisions((current) => ({ ...current, [key]: decision }))
+    } catch {
+      setApiFallback(true)
+    }
+  }
 
   // 翻身演示：短暂进入"先不调整"，再自动回到正常
   async function simulateTurn() {
@@ -42,7 +57,16 @@ export default function App() {
     } catch {
       setApiFallback(true)
     }
-    setTimeout(() => setDegrade(false), 6000)
+    if (turnTimer.current) clearTimeout(turnTimer.current)
+    turnTimer.current = setTimeout(async () => {
+      setDegrade(false)
+      try {
+        const recovered = await evaluateZone('knee', 'GOOD')
+        setDecisions((current) => ({ ...current, knee: recovered }))
+      } catch {
+        setApiFallback(true)
+      }
+    }, 6000)
   }
 
   const isHome = tab === 'titie'
@@ -57,7 +81,7 @@ export default function App() {
             <div className="appbody scroll-dark"><ValidationScreen /></div>
           ) : isHome ? (
             // 全屏沉浸主页
-            <HomeScreen degrade={degrade} decisions={decisions} apiFallback={apiFallback} onOpenRegion={setRegion} onTurn={simulateTurn}
+            <HomeScreen degrade={degrade} decisions={decisions} apiFallback={apiFallback} onOpenRegion={openRegion} onTurn={simulateTurn}
               theme={theme} onToggleTheme={() => setTheme((t) => (t === 'night' ? 'day' : 'night'))} />
           ) : (
             <div className="appbody scroll-dark">

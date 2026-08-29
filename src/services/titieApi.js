@@ -11,6 +11,8 @@ export const ZONE_KEY_MAP = {
   knee: 'knee_leg',
   foot: 'foot',
 }
+export const ZONE_KEYS = Object.keys(ZONE_KEY_MAP)
+let learnedFeedback = []
 
 async function request(path, options = {}) {
   const response = await fetch(path, {
@@ -35,14 +37,21 @@ export function evaluationPayload(zoneKey, quality = 'GOOD') {
     profile: observation.profile,
     window,
     context: observation.context,
-    history: observation.history,
+    history: {
+      feedback: [...observation.history.feedback, ...learnedFeedback],
+      interventions: observation.history.interventions,
+    },
   }
 }
 
 export const titieApi = {
   health: () => request('/api/health'),
   evaluate: (payload) => request('/api/evaluate', { method: 'POST', body: JSON.stringify(payload) }),
-  submitFeedback: (payload) => request('/api/feedback', { method: 'POST', body: JSON.stringify(payload) }),
+  submitFeedback: async (payload) => {
+    const result = await request('/api/feedback', { method: 'POST', body: JSON.stringify(payload) })
+    if (result?.accepted && result.feedback) learnedFeedback = [...learnedFeedback, result.feedback]
+    return result
+  },
   getValidation: () => request('/api/validate'),
 }
 
@@ -50,14 +59,14 @@ export async function evaluateZone(zoneKey, quality = 'GOOD') {
   return titieApi.evaluate(evaluationPayload(zoneKey, quality))
 }
 
-export function feedbackPayload(choice) {
+export function feedbackPayload(choice, zoneKey = 'knee') {
   const label = { warm: '暖一点', steady: '刚刚好', cool: '凉一点' }[choice]
+  const zone = ZONE_KEY_MAP[zoneKey] || zoneKey
   return {
     profile: feedbackObservation.profile,
-    window: feedbackObservation.windows.knee_leg,
+    window: feedbackObservation.windows[zone],
     context: feedbackObservation.context,
     history: feedbackObservation.history,
     label,
   }
 }
-

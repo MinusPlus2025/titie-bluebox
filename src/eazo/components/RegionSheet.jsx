@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Icon from './Icon.jsx'
 import { sheets } from '../data/content.js'
-import { engineSheet } from '../data/engine-view.js'
+import { actionTone, engineSheet } from '../data/engine-view.js'
 
 export default function RegionSheet({ regionKey, decision, apiFallback, onClose }) {
   const [showEvidence, setShowEvidence] = useState(false)
   const open = !!regionKey
   const data = regionKey ? engineSheet(decision, sheets[regionKey]) : null
+  const tone = decision ? actionTone(decision) : regionKey === 'knee' ? 'warm' : regionKey === 'shoulder' ? 'cool' : 'steady'
 
   // reset disclosure whenever a new region opens
   useEffect(() => { if (regionKey) setShowEvidence(false) }, [regionKey])
@@ -18,8 +19,8 @@ export default function RegionSheet({ regionKey, decision, apiFallback, onClose 
         <div className="sheet-grab" />
         {data && (
           <div className="sheet-body">
-            <div className={'sheet-head ' + (regionKey === 'knee' ? 'to-warm' : 'to-cool')}>
-              <span className="sh-ic"><Icon name={regionKey === 'knee' ? 'warm' : 'cool'} /></span>
+            <div className={'sheet-head to-' + tone}>
+              <span className="sh-ic"><Icon name={tone === 'steady' ? 'steady' : tone} /></span>
               <div>
                 <div className="sh-title">{data.region}</div>
                 <div className="sh-sub">{data.dir}</div>
@@ -32,8 +33,8 @@ export default function RegionSheet({ regionKey, decision, apiFallback, onClose 
               ))}
             </div>
 
-            <div className={'sheet-action ' + (regionKey === 'knee' ? 'act-warm' : 'act-cool')}>
-              <span className="sa-ic"><Icon name={regionKey === 'knee' ? 'warm' : 'cool'} /></span>
+            <div className={'sheet-action act-' + tone}>
+              <span className="sa-ic"><Icon name={tone === 'steady' ? 'steady' : tone} /></span>
               <div>
                 <div className="sa-t">{data.action.text}</div>
                 <div className="sa-time">{data.action.time}</div>

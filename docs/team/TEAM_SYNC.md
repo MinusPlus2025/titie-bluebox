@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-29  
-Current phase: Final Release — Eazo UI published and Production verified
+Current phase: Final Release — product interaction hardening complete
 
 ## Verified baseline
 
@@ -71,11 +71,20 @@ Simulated or not yet validated:
 - Production verification returned HTTP 200 for `/`, `/validation`, `/api/health`, `/api/evaluate`, `/api/feedback`, and `/api/validate`; the DEGRADED POST returned HOLD, intensity 0, duration 0.
 - Final UI defect fix: the shoulder/back hotspot was moved from the chest/forearm area to the visible right shoulder–upper-back junction. Regression baseline is now 66 tests passed with typecheck/build passing.
 - Brand/day-theme review: the supplied Blue Box artwork established `#1846B9` as the primary brand token. Night accents now use that blue; day mode now switches the canvas, photo treatment, rail, controls, sheets, and bottom navigation to a cold-white daytime system. The shoulder/back marker was moved again to the shoulder-blade/upper-back contour and its label now opens inward.
+- Final interaction hardening: all six body zones open the shared RegionSheet and use live `/api/evaluate` output; HOLD is rendered as a neutral first-class action.
+- Sleep history now switches among 8/27, 8/28, and 8/29; 日/周/月 render distinct session, seven-night, and 30-day content without introducing sleep scores or medical staging.
+- Feedback can target all six zones and the selected zone is sent through `/api/feedback`; accepted feedback is retained as running-session similar-episode evidence for subsequent evaluations.
+- All nine visible rows on the 我的 page open the existing sheet pattern; preferences persist in localStorage and device/privacy/about surfaces preserve the Prototype Simulation boundary.
+- The local Vite runtime now exposes the same API service functions as production, eliminating presentation-only fallback during local demos.
+- Final interaction regression baseline: 70 tests passed; `npm run typecheck` and `npm run build` passed.
+- Visual correction from product review: the shoulder marker is calibrated to the visible shoulder-blade area; cool/warm markers use restrained blue/orange halos and translucent blue labels aligned with the supplied reference.
 
 ## Current risks and next task
 
 - All observations, feedback, ground truth, and actuator behavior remain synthetic.
 - No real hardware timing, thermal-response, comfort, or safety evidence exists yet.
 - The fixed demo dataset is intentionally small and should not be generalized to population performance.
+- Similar-episode feedback persistence in this static demo is session-scoped; there is no account or durable backend database.
+- Marker placement is calibrated to the current supplied sleep image and would need remapping if the photography changes.
 - Legacy V1 reference screenshots remain archived but no longer define the active visual system.
 - Next: stop feature work and wait for product-owner review. Any subsequent change should be a confirmed release defect only.

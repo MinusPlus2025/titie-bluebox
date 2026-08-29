@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import Icon from './Icon.jsx'
-import { session, weekStats } from '../data/content.js'
+import { sessions, weekStats, monthStats } from '../data/content.js'
 
 export default function SleepScreen({ onOpenFeedback }) {
   const [seg, setSeg] = useState('日')
+  const [sessionIndex, setSessionIndex] = useState(sessions.length - 1)
+  const session = sessions[sessionIndex]
+  const canPrevious = sessionIndex > 0
+  const canNext = sessionIndex < sessions.length - 1
+  const stats = seg === '月' ? monthStats : weekStats
 
   return (
     <>
@@ -12,9 +17,9 @@ export default function SleepScreen({ onOpenFeedback }) {
       </div>
 
       <div className="date-switch">
-        <div className="ds-arrow" role="button"><Icon name="left" /></div>
+        <button className="ds-arrow" disabled={!canPrevious} aria-label="上一觉" onClick={() => canPrevious && setSessionIndex((i) => i - 1)}><Icon name="left" /></button>
         <div className="ds-date">{session.date}</div>
-        <div className="ds-arrow" role="button"><Icon name="right" /></div>
+        <button className="ds-arrow" disabled={!canNext} aria-label="下一觉" onClick={() => canNext && setSessionIndex((i) => i + 1)}><Icon name="right" /></button>
       </div>
 
       <div className="seg">
@@ -23,35 +28,40 @@ export default function SleepScreen({ onOpenFeedback }) {
         ))}
       </div>
 
-      {/* 这一觉 */}
-      <div className="session-card">
-        <div className="sc-range">这一觉 · {session.range}</div>
-        <div className="sc-dur">{session.duration}</div>
-        <div className="sc-note">{session.summary}</div>
-      </div>
-
-      <div className="section-t">这一觉发生了什么</div>
-      <div className="timeline">
-        {session.timeline.map((it, i) => (
-          <div key={i} className={'tl-item ' + it.tone}>
-            <div className="tl-time">{it.time}</div>
-            <div className="tl-text">{it.text}</div>
+      {seg === '日' ? (
+        <>
+          <div className="session-card">
+            <div className="sc-range">这一觉 · {session.range}</div>
+            <div className="sc-dur">{session.duration}</div>
+            <div className="sc-note">{session.summary}</div>
           </div>
-        ))}
-      </div>
-
-      {/* 最近7觉 */}
-      <div className="section-t">最近7觉</div>
-      <div className="stat-card">
-        <div className="stat-lead">{weekStats.lead}</div>
-        {weekStats.rows.map(([l, v]) => (
-          <div key={l} className="stat-row">
-            <span className="stat-l">{l}</span>
-            <span className="stat-v">{v}</span>
+          <div className="section-t">这一觉发生了什么</div>
+          <div className="timeline">
+            {session.timeline.map((it, i) => (
+              <div key={i} className={'tl-item ' + it.tone}>
+                <div className="tl-time">{it.time}</div>
+                <div className="tl-text">{it.text}</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="stat-foot">{weekStats.foot}</div>
+          <div className="section-t">这一觉的照顾</div>
+          <div className="stat-card">
+            <div className="stat-row"><span className="stat-l">局部调节</span><span className="stat-v">{session.caredZones}</span></div>
+            <div className="stat-row"><span className="stat-l">最近反馈</span><span className="stat-v">{session.feedback}</span></div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="section-t">{seg === '周' ? '最近7觉' : '最近30天'}</div>
+          <div className="stat-card">
+            <div className="stat-lead">{stats.lead}</div>
+            {stats.rows.map(([l, v]) => (
+              <div key={l} className="stat-row"><span className="stat-l">{l}</span><span className="stat-v">{v}</span></div>
+            ))}
+          </div>
+          <div className="stat-foot">{stats.foot}</div>
+        </>
+      )}
 
       {/* 轻量入口：睡后反馈（不在底部导航里） */}
       <div className="fb-entry" onClick={onOpenFeedback} role="button">

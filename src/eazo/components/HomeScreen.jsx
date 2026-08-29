@@ -5,12 +5,15 @@ import { regions, ambient } from '../data/content.js'
 
 // 位置按真机预览标定（俯拍全身，人物偏中右）：肩背=右肩上背、膝腿=被子下膝盖弯曲处
 export const BODY_MARKER_POSITIONS = {
-  // 落在可见肩胛上背区域；标签向左展开，避免误读为手臂热点。
-  shoulder: { top: '38%', left: '87%' },
+  // 肩背点落在肩胛上背，不落在上臂；标签向左展开避免超出画面。
+  shoulder: { top: '25.5%', left: '68%' },
   knee: { top: '63%', left: '46%' },
 }
 
 export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegion, onTurn, theme, onToggleTheme }) {
+  const shoulderTone = decisions.shoulder?.action === 'WARM' ? 'warm' : decisions.shoulder?.action === 'HOLD' ? 'steady' : 'cool'
+  const kneeTone = decisions.knee?.action === 'COOL' ? 'cool' : decisions.knee?.action === 'HOLD' ? 'steady' : 'warm'
+  const statusFor = (decision, fallback) => decision?.action === 'WARM' ? '偏凉' : decision?.action === 'COOL' ? '偏热' : decision?.action === 'HOLD' ? '刚刚好' : fallback
   return (
     <div className="immersive">
       <div className="immersive-photo" style={{ backgroundImage: `url(${figure})` }} />
@@ -35,7 +38,7 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
           <div
             key={r.key}
             className={'rail-item ' + (decisions[r.key]?.action === 'WARM' ? 'warm' : decisions[r.key]?.action === 'COOL' ? 'cool' : r.tone)}
-            onClick={() => (r.tone === 'steady' ? null : onOpenRegion(r.key))}
+            onClick={() => onOpenRegion(r.key)}
             role="button"
             aria-label={r.name}
           >
@@ -49,15 +52,15 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
       {!degrade && (
         <>
           {/* 发光圆点标注 —— 颜色表示"产品动作"：偏热→需要凉一点(蓝) / 偏凉→需要暖一点(橙) */}
-          <div className="glowdot cool shoulder-marker" style={{ top: BODY_MARKER_POSITIONS.shoulder.top, left: BODY_MARKER_POSITIONS.shoulder.left }}
+          <div className={'glowdot shoulder-marker ' + shoulderTone} style={{ top: BODY_MARKER_POSITIONS.shoulder.top, left: BODY_MARKER_POSITIONS.shoulder.left }}
             onClick={() => onOpenRegion('shoulder')} role="button" aria-label="肩背">
             <span className="gd-orb" />
-            <span className="gd-label">肩背<span className="gl-s">偏热</span></span>
+            <span className="gd-label">肩背<span className="gl-s">{statusFor(decisions.shoulder, '偏热')}</span></span>
           </div>
-          <div className="glowdot warm" style={{ top: BODY_MARKER_POSITIONS.knee.top, left: BODY_MARKER_POSITIONS.knee.left }}
+          <div className={'glowdot ' + kneeTone} style={{ top: BODY_MARKER_POSITIONS.knee.top, left: BODY_MARKER_POSITIONS.knee.left }}
             onClick={() => onOpenRegion('knee')} role="button" aria-label="膝腿">
             <span className="gd-orb" />
-            <span className="gd-label">膝腿<span className="gl-s">偏凉</span></span>
+            <span className="gd-label">膝腿<span className="gl-s">{statusFor(decisions.knee, '偏凉')}</span></span>
           </div>
         </>
       )}

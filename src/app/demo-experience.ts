@@ -1,5 +1,6 @@
 import { generateThermalControlCommand } from "../control/control-command-generator.js";
-import type { ActuatorCapability, ThermalControlCommand } from "../domain/control.js";
+import { PROTOTYPE_ACTUATOR_CAPABILITY } from "../control/prototype-actuator.js";
+import type { ThermalControlCommand } from "../domain/control.js";
 import {
   BODY_ZONES,
   type BodyZone,
@@ -26,18 +27,6 @@ export interface ZoneControlPresentation {
   decision: ZoneDecision;
   command: ThermalControlCommand;
 }
-
-const ACTUATOR_CAPABILITY: ActuatorCapability = {
-  actuatorId: "prototype-mattress-v1",
-  zones: {
-    head_neck: { directions: ["HEAT", "COOL"], maxLevel: 1, maxDurationMinutes: 8 },
-    shoulder_back: { directions: ["HEAT", "COOL"], maxLevel: 1, maxDurationMinutes: 5 },
-    waist_abdomen: { directions: ["HEAT", "COOL"], maxLevel: 2, maxDurationMinutes: 10 },
-    thigh: { directions: ["HEAT", "COOL"], maxLevel: 2, maxDurationMinutes: 10 },
-    knee_leg: { directions: ["HEAT", "COOL"], maxLevel: 2, maxDurationMinutes: 8 },
-    foot: { directions: ["HEAT"], maxLevel: 2, maxDurationMinutes: 8 }
-  }
-};
 
 function featureVector(window: ZoneSensorWindow, baseline: number, timeOfNight: string): PersonalizationFeatureVector {
   const features = extractZoneFeatures(window);
@@ -98,7 +87,7 @@ export function createDemoExperience() {
   const bodyByZone = Object.fromEntries(decisions.map((decision) => [decision.zone, decision])) as Record<BodyZone, ZoneDecision>;
   const controlByZone = Object.fromEntries(decisions.map((decision) => [decision.zone, {
     decision,
-    command: generateThermalControlCommand(decision, ACTUATOR_CAPABILITY)
+    command: generateThermalControlCommand(decision, PROTOTYPE_ACTUATOR_CAPABILITY)
   }])) as Record<BodyZone, ZoneControlPresentation>;
   const technicalByZone = Object.fromEntries(BODY_ZONES.map((zone) => {
     const window = tonightObservation.windows[zone];
@@ -184,7 +173,7 @@ export function createDemoExperience() {
         contextReasons: ["房间整体变化不大，所以先不调整整张床。"]
       };
     },
-    actuatorCapability: ACTUATOR_CAPABILITY,
+    actuatorCapability: PROTOTYPE_ACTUATOR_CAPABILITY,
     control: { byZone: controlByZone },
     technical: { byZone: technicalByZone },
     timeline: [
@@ -208,7 +197,7 @@ export function createDemoExperience() {
     validation: runPhase2Validation(),
     sensorDegraded: {
       decision: degradedDecision,
-      command: generateThermalControlCommand(degradedDecision, ACTUATOR_CAPABILITY)
+      command: generateThermalControlCommand(degradedDecision, PROTOTYPE_ACTUATOR_CAPABILITY)
     }
   };
 }

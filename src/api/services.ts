@@ -2,6 +2,9 @@ import { BODY_ZONES, type DecisionHistory, type PersonalizationFeatureVector, ty
 import { decideForZone } from "../engine/thermal-preference-engine.js";
 import { extractZoneFeatures } from "../engine/feature-extractor.js";
 import { runPhase2Validation } from "../validation/validation-runner.js";
+import { generateThermalControlCommand } from "../control/control-command-generator.js";
+import { PROTOTYPE_ACTUATOR_CAPABILITY } from "../control/prototype-actuator.js";
+import { calibrateFromFeedback } from "../engine/personal-calibration.js";
 
 export interface EvaluationRequest {
   profile: ThermalProfile;
@@ -35,12 +38,36 @@ function requireEvaluationRequest(value: unknown): EvaluationRequest {
 
 export function evaluateThermalPreference(value: unknown) {
   const request = requireEvaluationRequest(value);
-  return decideForZone(
+  const history = request.history ?? EMPTY_HISTORY;
+  const decision = decideForZone(
     request.profile,
     request.window,
     request.context,
-    request.history ?? EMPTY_HISTORY
+    history
   );
+  const features = extractZoneFeatures(request.window);
+  const baseline = request.profile.zoneBaselines[request.window.zone];
+  const vector: PersonalizationFeatureVector = {
+    localTempDeviation: features.localSkinTemp - baseline.localSkinTemp,
+    skinTempSlopePerMinute: features.skinTempSlopePerMinute,
+    localHumidity: features.localHumidity,
+    humiditySlopePerMinute: features.humiditySlopePerMinute,
+    zoneToBodyDelta: features.zoneToBodyDelta,
+    timeOfNight: request.context.timeOfNight,
+    ...(request.context.sleepStage ? { sleepStage: request.context.sleepStage } : {})
+  };
+  const calibration = calibrateFromFeedback(request.profile.userId, request.window.zone, history.feedback, vector);
+  return {
+    ...decision,
+    controlCommand: generateThermalControlCommand(decision, PROTOTYPE_ACTUATOR_CAPABILITY),
+    diagnostics: {
+      skinTempSlopePerMinute: features.skinTempSlopePerMinute,
+      humiditySlopePerMinute: features.humiditySlopePerMinute,
+      localHumidity: features.localHumidity,
+      zoneToBodyDelta: features.zoneToBodyDelta,
+      similarEpisodeCount: calibration.feedbackCount
+    }
+  };
 }
 
 export function applyThermalFeedback(value: unknown) {

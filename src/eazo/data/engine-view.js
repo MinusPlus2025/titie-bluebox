@@ -27,9 +27,12 @@ export function engineSheet(decision, fallback) {
       lead: decision.reasons.map((reason) => reason.message),
       action: { text: '保持刚刚好', time: '暂不调节' },
       hint: `${decision.reevaluateAfterMinutes}分钟后再看看。`,
-      evidence: [
+    evidence: [
         ['传感质量', decision.sensorQuality],
         ['置信度', `${Math.round(decision.confidence * 100)}%`],
+        ['温度变化率', formatSlope(decision.diagnostics?.skinTempSlopePerMinute, '°C/分钟')],
+        ['局部与身体温差', formatValue(decision.diagnostics?.zoneToBodyDelta, '°C')],
+        ['相似状态', `${decision.diagnostics?.similarEpisodeCount ?? 0}个`],
         ['Engine action', decision.action],
         ['原始判断理由', decision.reasons.map((reason) => reason.code).join(' · ')],
       ],
@@ -44,11 +47,30 @@ export function engineSheet(decision, fallback) {
       time: decision.durationMinutes ? `约${decision.durationMinutes}分钟` : '暂不调节',
     },
     hint: `${decision.reevaluateAfterMinutes}分钟后再看看。`,
-    evidence: [
+      evidence: [
       ['传感质量', decision.sensorQuality],
       ['置信度', `${Math.round(decision.confidence * 100)}%`],
+      ['温度变化率', formatSlope(decision.diagnostics?.skinTempSlopePerMinute, '°C/分钟')],
+      ['局部湿度', formatValue(decision.diagnostics?.localHumidity, '%')],
+      ['局部与身体温差', formatValue(decision.diagnostics?.zoneToBodyDelta, '°C')],
+      ['相似状态', `${decision.diagnostics?.similarEpisodeCount ?? 0}个`],
+      ['ControlCommand', commandSummary(decision.controlCommand)],
       ['Engine action', decision.action],
       ['原始判断理由', decision.reasons.map((reason) => reason.code).join(' · ')],
     ],
   }
+}
+
+function formatValue(value, unit) {
+  return Number.isFinite(value) ? `${value.toFixed(2)}${unit}` : '暂无'
+}
+
+function formatSlope(value, unit) {
+  if (!Number.isFinite(value)) return '暂无'
+  return `${value > 0 ? '+' : ''}${value.toFixed(3)}${unit}`
+}
+
+function commandSummary(command) {
+  if (!command) return '暂无'
+  return `${command.direction} · level ${command.level} · ${command.durationMinutes}分钟`
 }
