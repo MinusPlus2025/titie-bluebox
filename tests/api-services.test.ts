@@ -35,6 +35,7 @@ describe("API service contracts", () => {
     expect(decision.sensorQuality).toBe("DEGRADED");
     expect(decision.action).toBe("HOLD");
     expect(decision.intensity).toBe(0);
+    expect(decision.durationMinutes).toBe(0);
   });
 
   it("returns HOLD for INVALID sensor data", () => {
@@ -51,6 +52,7 @@ describe("API service contracts", () => {
     expect(decision.sensorQuality).toBe("INVALID");
     expect(decision.action).toBe("HOLD");
     expect(decision.intensity).toBe(0);
+    expect(decision.durationMinutes).toBe(0);
   });
 
   it("accepts feedback and reruns the same episode", () => {

@@ -6,7 +6,7 @@ Decision: expose health, evaluation, feedback, and validation as Vercel Function
 
 Reason: the final full-stack release requires real HTTP boundaries, while the frozen Phase 1/2 business logic must remain the single source of truth. API handlers perform only method handling, request-shape validation, and response serialization.
 
-Safety contract: DEGRADED and INVALID inputs are verified through the actual evaluation service to return HOLD with intensity 0. All generated evidence remains labeled Prototype Simulation.
+Safety contract: DEGRADED and INVALID inputs stop at the Engine boundary and return HOLD with intensity 0, regardless of the thermal evidence direction. All generated evidence remains labeled Prototype Simulation.
 
 ## 2026-08-29 — BlueBox Brand UI/UX V2 becomes visual source of truth
 

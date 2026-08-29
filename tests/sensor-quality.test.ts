@@ -68,7 +68,9 @@ describe("sensor quality degradation", () => {
 
     expect(quality.status).toBe("DEGRADED");
     expect(degradedDecision.confidence).toBeLessThan(goodDecision.confidence);
-    expect(degradedDecision.intensity).toBeLessThanOrEqual(goodDecision.intensity);
+    expect(degradedDecision.action).toBe("HOLD");
+    expect(degradedDecision.intensity).toBe(0);
+    expect(degradedDecision.durationMinutes).toBe(0);
   });
 
   it("treats an implausible local skin temperature spike as INVALID and holds", () => {
@@ -81,6 +83,7 @@ describe("sensor quality degradation", () => {
 
     expect(assessSensorQuality(spike, context.currentTime).status).toBe("INVALID");
     expect(decideForZone(profile, spike, context, history).action).toBe("HOLD");
+    expect(decideForZone(profile, spike, context, history).durationMinutes).toBe(0);
   });
 
   it("treats stale data as INVALID and safely holds", () => {

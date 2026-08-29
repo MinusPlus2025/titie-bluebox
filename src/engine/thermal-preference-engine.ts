@@ -35,7 +35,8 @@ export function decideForZone(
 ): ZoneDecision {
   const zone = zoneSensorWindow.zone;
   const sensorQuality = assessSensorQuality(zoneSensorWindow, context.currentTime);
-  if (!sensorQuality.safeToIntervene) {
+  if (sensorQuality.status !== "GOOD") {
+    const degraded = sensorQuality.status === "DEGRADED";
     return {
       zone,
       action: "HOLD",
@@ -44,8 +45,10 @@ export function decideForZone(
       durationMinutes: 0,
       confidence: sensorQuality.confidenceMultiplier,
       reasons: [{
-        code: "SENSOR_DATA_INVALID",
-        message: "关键传感数据不可靠，已安全停止调节"
+        code: degraded ? "SENSOR_QUALITY_DEGRADED" : "SENSOR_DATA_INVALID",
+        message: degraded
+          ? "部分传感信号不够稳定，先不调整，继续观察。"
+          : "关键传感数据不可靠，已安全停止调节"
       }],
       reevaluateAfterMinutes: 2,
       simulation: true,
@@ -95,13 +98,6 @@ export function decideForZone(
     reasons.push({ code: "HUMIDITY_RISING", message: "局部湿度正在上升" });
   }
   reasons.push(...calibration.reasons);
-  if (sensorQuality.status === "DEGRADED") {
-    reasons.push({
-      code: "SENSOR_QUALITY_DEGRADED",
-      message: "部分传感信号缺失，已降低判断置信度"
-    });
-  }
-
   const netWarmthNeed = warmEvidence - coolEvidence + calibration.directionalBias;
   const preferredDirection: ThermalAction = netWarmthNeed >= 0
     ? (Math.abs(netWarmthNeed) >= 0.01 ? "WARM" : "HOLD")

@@ -38,6 +38,11 @@
 - [x] Added thin serverless API adapters for health, evaluation, feedback, and validation without changing the frozen engine.
 - [x] Added `/validation` production deep-link support.
 - [x] Added API contract tests for DEGRADED/INVALID safe HOLD; final local baseline is 61/61 tests plus passing typecheck/build.
+- [x] Replaced the user-visible frontend with the Eazo source implementation and original sleep image without changing the frozen domain core.
+- [x] Centralized frontend API access and connected evaluate, feedback, validation, and health contracts.
+- [x] Connected the turn interaction to a real DEGRADED evaluate request with HOLD/intensity 0/duration 0 enforcement.
+- [x] Added Eazo integration and safety tests; final local baseline is 65/65 tests plus passing typecheck/build.
+- [x] Verified the final Eazo homepage, six body zones, region sheet, three bottom tabs, and degraded interaction at 390 × 844.
 
 ## Blocked
 

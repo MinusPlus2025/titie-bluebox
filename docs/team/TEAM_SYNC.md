@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-29  
-Current phase: Final Release — GitHub & Vercel Production
+Current phase: Final Release — Eazo UI merged; GitHub & Vercel publication pending
 
 ## Verified baseline
 
@@ -63,6 +63,10 @@ Simulated or not yet validated:
 - Production deep link `/validation` is configured and opens the existing Technical Validation surface.
 - Final release baseline: 61 tests passed; `npm run typecheck` and `npm run build` passed.
 - API contract tests confirm both DEGRADED and INVALID sensor inputs return HOLD with intensity 0.
+- Eazo final frontend source is now the only user-visible frontend: dark-blue immersive sleep image, six-zone rail, region sheet, sleep history, feedback overlay, and exactly three bottom tabs.
+- All frontend network traffic is centralized in `src/services/titieApi.js`; evaluate, feedback, health, and validation retain the existing serverless/domain contracts.
+- The turn demo posts a real DEGRADED evaluation and requires HOLD, intensity 0, and duration 0; INVALID follows the same safe-stop boundary.
+- Eazo merge verification baseline: 65 tests passed; `npm run typecheck` and `npm run build` passed. Browser check at 390 × 844 confirmed the Eazo composition, region sheet, three tabs, and calm turn/degraded state.
 
 ## Current risks and next task
 
@@ -70,4 +74,4 @@ Simulated or not yet validated:
 - No real hardware timing, thermal-response, comfort, or safety evidence exists yet.
 - The fixed demo dataset is intentionally small and should not be generalized to population performance.
 - Legacy V1 reference screenshots remain archived but no longer define the active visual system.
-- Next: publish the verified commit to GitHub and Vercel Production, then verify all public routes.
+- Next: publish the verified Eazo merge commit to GitHub and the existing Vercel Production project, then verify all public routes and API methods.
