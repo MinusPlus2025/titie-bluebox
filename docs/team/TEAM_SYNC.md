@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-30
-Current phase: Final Release — product interaction hardening complete
+Current phase: Final Release — user/engineering evidence hierarchy complete
 
 ## Verified baseline
 
@@ -84,6 +84,9 @@ Simulated or not yet validated:
 - The product-review correction is published on `main` in commit `797f128` and is active at `https://titie-bluebox.vercel.app/`.
 - Engine-evidence disclosure defect fixed across all six region sheets: the former 400px animated cap clipped the final evidence rows. The shared RegionSheet now uses an uncapped native disclosure inside a safe, touch-scrollable sheet body; all real Engine evidence, raw reason codes, and the Prototype Simulation badge can be reached. Regression baseline: 72 tests passed; typecheck/build passed.
 - The complete evidence disclosure fix is published on `main` in commit `446f00e` and verified in Production at `https://titie-bluebox.vercel.app/` with nine rows, matching panel client/scroll heights, zero horizontal overflow, and no console errors.
+- Final information-hierarchy optimization: every RegionSheet now separates the primary human decision, 2–4 dynamic natural-language reasons, and a weaker nested technical detail layer. GOOD/DEGRADED/INVALID and confidence values are translated for users; raw action, command, and reason codes no longer appear in the user sheet.
+- Technical Validation now includes a live decision example from the existing `/api/evaluate` path with zone, Sensor Quality, confidence, Engine Action, ControlCommand, reevaluation, diagnostics, raw Reason Codes, and the Prototype Simulation boundary.
+- Information-hierarchy regression baseline: 75 tests passed; `npm run typecheck` and `npm run build` passed. Local 390 × 844 browser checks covered HOLD/WARM/COOL disclosures and the Technical Validation evidence surface.
 
 ## Current risks and next task
 

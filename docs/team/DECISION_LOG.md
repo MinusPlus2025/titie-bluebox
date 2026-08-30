@@ -1,5 +1,13 @@
 # DECISION LOG
 
+## 2026-08-30 — Separate human reasoning from engineering evidence
+
+Decision: keep the existing Bottom Sheet and visual composition, but divide RegionSheet evidence into three progressive layers: human decision/action, dynamic natural-language reasons derived from the real Engine result, and a nested technical detail disclosure. Raw Engine action, ControlCommand, Sensor Quality enums, and reason codes belong only on Technical Validation.
+
+Reason: judges and users need a complete explanation without engineering labels overwhelming the primary thermal experience. This preserves a single Engine while making HOLD visibly intentional and making technical evidence available in the correct context.
+
+Implementation boundary: `/api/evaluate`, the thermal Engine, Sensor Quality, Control Contract, Similar Episode Personalization, and Validation Runner remain unchanged. The update is strictly a presentation adapter and regression-test change.
+
 ## 2026-08-29 — Final interaction layer remains a thin adapter
 
 Decision: complete visible interaction responses in the Eazo React layer while continuing to derive thermal decisions, reasons, sensor safety behavior, actuator commands, feedback episodes, and validation metrics from the frozen Phase 1/2 modules.

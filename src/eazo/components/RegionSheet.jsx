@@ -3,7 +3,7 @@ import Icon from './Icon.jsx'
 import { sheets } from '../data/content.js'
 import { actionTone, engineSheet } from '../data/engine-view.js'
 
-export default function RegionSheet({ regionKey, decision, apiFallback, onClose }) {
+export default function RegionSheet({ regionKey, decision, onClose }) {
   const open = !!regionKey
   const data = regionKey ? engineSheet(decision, sheets[regionKey]) : null
   const tone = decision ? actionTone(decision) : regionKey === 'knee' ? 'warm' : regionKey === 'shoulder' ? 'cool' : 'steady'
@@ -38,22 +38,40 @@ export default function RegionSheet({ regionKey, decision, apiFallback, onClose 
             </div>
             <div className="sheet-hint">{data.hint}</div>
 
-            {/* 弱入口：查看判断依据 */}
+            {/* 用户解释优先，工程参数置于二级折叠层。 */}
             <details className="disclose" key={regionKey}>
               <summary className="disclose-trigger">
-                <span>查看判断依据</span>
+                <span>{data.evidenceTitle}</span>
                 <Icon name="chev" />
               </summary>
               <div className="disclose-panel">
-                <div className="evidence-list">
-                  {data.evidence.map(([k, v]) => (
-                    <div key={k} className="evidence-row">
-                      <span className="er-label">{k}</span>
-                      <span className="er-val">{v}</span>
+                <div className="user-reason-list">
+                  {data.userReasons.map((reason) => (
+                    <div key={reason} className="user-reason">
+                      <span className="user-reason-mark" aria-hidden="true" />
+                      <span>{reason}</span>
                     </div>
                   ))}
                 </div>
-                <span className="sim-badge"><span className="sb-dot2" />Prototype Simulation{apiFallback ? ' · API fallback' : ''}</span>
+                <div className="evidence-status">
+                  <div><strong>{data.dataStatus}</strong><span>{data.confidenceLabel}</span></div>
+                  <span>{data.reevaluateLabel}</span>
+                </div>
+                <details className="technical-disclose">
+                  <summary className="technical-trigger">
+                    <span>技术详情</span>
+                    <Icon name="chev" />
+                  </summary>
+                  <div className="evidence-list">
+                    {data.technicalEvidence.map(([k, v]) => (
+                      <div key={k} className="evidence-row">
+                        <span className="er-label">{k}</span>
+                        <span className="er-val">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+                <span className="sim-badge"><span className="sb-dot2" />Prototype Simulation · 原型模拟</span>
               </div>
             </details>
           </div>

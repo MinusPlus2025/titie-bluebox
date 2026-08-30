@@ -17,47 +17,121 @@ export function actionTone(decision) {
   return 'steady'
 }
 
+const USER_REASON_COPY = {
+  LOCAL_TEMP_BELOW_BASELINE: '这里比你平时的状态更凉一些',
+  LOCAL_TEMP_ABOVE_BASELINE: '这里比你平时的状态更热一些',
+  LOCAL_TEMP_FALLING: '这里最近在慢慢变凉',
+  LOCAL_TEMP_RISING: '这里最近在慢慢变热',
+  HUMIDITY_RISING: '这里的湿度正在上升',
+  PERSONAL_WARM_PATTERN: '在和现在相似的状态下，你过去更常希望这里暖一点',
+  PERSONAL_COOL_PATTERN: '在和现在相似的状态下，你过去更常希望这里凉一点',
+  PERSONAL_FEEDBACK_CONFLICT: '过去相似状态下的选择还不够一致',
+  LOW_CONFIDENCE_HOLD: '目前没有足够理由主动调整',
+  HYSTERESIS_HOLD: '变化方向还不够稳定，先避免反复调节',
+  MINIMUM_INTERVAL_HOLD: '刚刚已经调节过，先观察一会儿',
+  SENSOR_QUALITY_DEGRADED: '刚刚的信号还不够稳定，先继续观察',
+  SENSOR_DATA_INVALID: '当前数据不足以安全调节，已经暂停动作',
+  STABLE_LOCAL_STATE: '这里最近的状态比较稳定',
+}
+
+function dataStatusCopy(status) {
+  if (status === 'DEGRADED') return '数据暂时不稳定'
+  if (status === 'INVALID') return '当前数据不可用'
+  return '数据状态正常'
+}
+
+function technicalDataStatus(status) {
+  if (status === 'DEGRADED') return '暂时不稳定'
+  if (status === 'INVALID') return '不可用'
+  return '正常'
+}
+
+function confidenceCopy(confidence) {
+  if (confidence < 0.6) return '当前依据不足'
+  if (confidence < 0.8) return '当前判断较明确'
+  return '当前判断明确'
+}
+
+function unique(items) {
+  return [...new Set(items.filter(Boolean))]
+}
+
+function userReasonsFor(decision) {
+  if (decision.sensorQuality === 'DEGRADED') {
+    return ['刚刚的信号还不够稳定，先继续观察', '当前不会主动调节']
+  }
+  if (decision.sensorQuality === 'INVALID') {
+    return ['当前数据不足以安全调节，已经暂停动作', '恢复稳定数据前不会主动调节']
+  }
+
+  const diagnostics = decision.diagnostics || {}
+  const mapped = decision.reasons.map(({ code }) => USER_REASON_COPY[code]).filter(Boolean)
+  if (decision.action === 'HOLD') {
+    const temperatureReason = Math.abs(diagnostics.skinTempSlopePerMinute ?? 0) <= 0.005
+      ? '这里最近的温度基本稳定'
+      : mapped.find((reason) => reason.includes('变凉') || reason.includes('变热'))
+    const humidityReason = Math.abs(diagnostics.humiditySlopePerMinute ?? 0) <= 0.1
+      ? '局部湿度没有明显变化'
+      : mapped.find((reason) => reason.includes('湿度'))
+    const personalReason = (diagnostics.similarEpisodeCount ?? 0) > 0
+      ? `已有${diagnostics.similarEpisodeCount}个相似状态可供参考`
+      : '还没有足够的相似状态支持主动调节'
+    return unique([temperatureReason, humidityReason, '当前接触状态正常', personalReason]).slice(0, 4)
+  }
+
+  return unique([...mapped, '当前接触状态正常']).slice(0, 4)
+}
+
+function ensureSentence(text) {
+  return /[。！？]$/.test(text) ? text : `${text}。`
+}
+
+function primaryLeadFor(decision, userReasons) {
+  if (decision.sensorQuality === 'DEGRADED') return ['刚刚的信号还不够稳定，先继续观察。']
+  if (decision.sensorQuality === 'INVALID') return ['当前数据不足以安全调节，已经暂停动作。']
+  if (decision.action === 'HOLD') {
+    const stable = Math.abs(decision.diagnostics?.skinTempSlopePerMinute ?? 0) <= 0.005
+    return [stable ? '这里目前比较稳定。' : ensureSentence(userReasons[0]), '没有足够理由主动调整。']
+  }
+  return userReasons.slice(0, 2).map(ensureSentence)
+}
+
+function evidenceTitleFor(action) {
+  if (action === 'WARM') return '为什么暖一点'
+  if (action === 'COOL') return '为什么凉一点'
+  return '为什么先不调'
+}
+
+function technicalEvidenceFor(decision) {
+  return [
+    ['数据状态', technicalDataStatus(decision.sensorQuality)],
+    ['判断置信度', `${Math.round(decision.confidence * 100)}%`],
+    ['温度变化率', formatSlope(decision.diagnostics?.skinTempSlopePerMinute, '°C/分钟')],
+    ['局部湿度', formatCompact(decision.diagnostics?.localHumidity, '%', 1)],
+    ['局部与身体温差', formatValue(decision.diagnostics?.zoneToBodyDelta, '°C')],
+    ['相似状态数量', `${decision.diagnostics?.similarEpisodeCount ?? 0}个`],
+  ]
+}
+
 export function engineSheet(decision, fallback) {
   if (!decision) return fallback
+  const userReasons = userReasonsFor(decision)
   const unsafe = decision.sensorQuality !== 'GOOD'
-  if (unsafe) {
-    return {
-      ...fallback,
-      dir: '先不调整，继续观察',
-      lead: decision.reasons.map((reason) => reason.message),
-      action: { text: '保持刚刚好', time: '暂不调节' },
-      hint: `${decision.reevaluateAfterMinutes}分钟后再看看。`,
-    evidence: [
-        ['传感质量', decision.sensorQuality],
-        ['置信度', `${Math.round(decision.confidence * 100)}%`],
-        ['温度变化率', formatSlope(decision.diagnostics?.skinTempSlopePerMinute, '°C/分钟')],
-        ['局部与身体温差', formatValue(decision.diagnostics?.zoneToBodyDelta, '°C')],
-        ['相似状态', `${decision.diagnostics?.similarEpisodeCount ?? 0}个`],
-        ['Engine action', decision.action],
-        ['原始判断理由', decision.reasons.map((reason) => reason.code).join(' · ')],
-      ],
-    }
-  }
   return {
     ...fallback,
-    dir: actionCopy(decision),
-    lead: decision.reasons.slice(0, 3).map((reason) => reason.message),
+    dir: unsafe ? '先不调整，继续观察' : actionCopy(decision),
+    lead: primaryLeadFor(decision, userReasons),
     action: {
       text: decision.action === 'WARM' ? '正在暖一点' : decision.action === 'COOL' ? '正在凉一点' : '保持刚刚好',
       time: decision.durationMinutes ? `约${decision.durationMinutes}分钟` : '暂不调节',
     },
     hint: `${decision.reevaluateAfterMinutes}分钟后再看看。`,
-      evidence: [
-      ['传感质量', decision.sensorQuality],
-      ['置信度', `${Math.round(decision.confidence * 100)}%`],
-      ['温度变化率', formatSlope(decision.diagnostics?.skinTempSlopePerMinute, '°C/分钟')],
-      ['局部湿度', formatValue(decision.diagnostics?.localHumidity, '%')],
-      ['局部与身体温差', formatValue(decision.diagnostics?.zoneToBodyDelta, '°C')],
-      ['相似状态', `${decision.diagnostics?.similarEpisodeCount ?? 0}个`],
-      ['ControlCommand', commandSummary(decision.controlCommand)],
-      ['Engine action', decision.action],
-      ['原始判断理由', decision.reasons.map((reason) => reason.code).join(' · ')],
-    ],
+    evidenceTitle: evidenceTitleFor(decision.action),
+    userReasons,
+    dataStatus: dataStatusCopy(decision.sensorQuality),
+    confidenceLabel: confidenceCopy(decision.confidence),
+    reevaluateLabel: `${decision.reevaluateAfterMinutes}分钟后重新判断`,
+    technicalEvidence: technicalEvidenceFor(decision),
   }
 }
 
@@ -70,7 +144,7 @@ function formatSlope(value, unit) {
   return `${value > 0 ? '+' : ''}${value.toFixed(3)}${unit}`
 }
 
-function commandSummary(command) {
-  if (!command) return '暂无'
-  return `${command.direction} · level ${command.level} · ${command.durationMinutes}分钟`
+function formatCompact(value, unit, digits) {
+  if (!Number.isFinite(value)) return '暂无'
+  return `${Number(value.toFixed(digits))}${unit}`
 }

@@ -60,6 +60,10 @@
 - [x] Fixed mobile HUD chip overflow at 390px/320px and moved the shoulder marker right to the reviewed shoulder-blade position.
 - [x] Moved the shoulder/back label to the hotspot's right side and harmonized day-mode rail/chip/toggle/monitor surfaces with translucent cool-white styling; reverified 390px/320px with zero horizontal overflow.
 - [x] Removed the shared 400px evidence-panel cap, migrated RegionSheet evidence to an accessible native disclosure, and verified the final raw-reason row plus Prototype Simulation badge are reachable at 390 × 844; 72/72 tests passed.
+- [x] Reorganized every RegionSheet into human decision → dynamic natural-language reasoning → nested technical detail, without changing Engine or `/api/evaluate` decisions.
+- [x] Translated sensor quality and confidence into product language and removed raw engineering identifiers from the user-facing sheet.
+- [x] Added the live `/api/evaluate` engineering example to Technical Validation and verified HOLD/WARM/COOL plus the six-field technical disclosure at 390 × 844.
+- [x] Added information-hierarchy regression coverage; final local baseline is 75/75 tests plus passing typecheck/build.
 
 ## Blocked
 

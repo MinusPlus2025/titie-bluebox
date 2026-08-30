@@ -1,5 +1,14 @@
 # HANDOFF
 
+## 2026-08-30 — Final evidence hierarchy
+
+- RegionSheet now presents a clear human-first decision, an action-specific “为什么” disclosure with 2–4 real-result translations, and a nested six-field technical detail disclosure.
+- User sheets translate sensor quality and confidence and no longer expose ControlCommand, Engine Action, raw enum values, or reason codes.
+- Technical Validation now owns the full engineering example and sources it through the existing evaluation service.
+- Frozen domain algorithms and `/api/evaluate` decision logic were not changed.
+- Current local verification: `npm test` → 75 passed; `npm run typecheck` → passed; `npm run build` → passed.
+- Next owner action: review the deployed evidence hierarchy. Do not add features or redesign the final Eazo UI.
+
 ## 2026-08-29 — Final interaction completion
 
 - Six-zone Engine evaluation, shared dynamic RegionSheet, real ControlCommand diagnostics, three sleep sessions, distinct 日/周/月 views, six-zone feedback, and all 我的-page rows are implemented.
