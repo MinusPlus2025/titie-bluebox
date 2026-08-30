@@ -108,6 +108,7 @@ Simulated or not yet validated:
 - User-boundary release commit `2a1b72e` is active at `https://titie-bluebox.vercel.app/`. Production checks confirmed the natural Home boundary and the raw-engine-free public comparison page.
 - Day/night control semantics corrected: the capsule now shows the current state (`夜晚` with moon / `白天` with sun), while its accessible label states the destination. The refined 44px control keeps a clear icon well, restrained surface contrast, and zero overflow at 390px and 320px.
 - Theme-control regression baseline remains 82 tests passed with typecheck/build/diff checks passing.
+- Theme-control release commit `33eec43` is active in Production; online verification confirmed `夜晚`, the matching moon icon semantics, and a 44px control height.
 
 ## Current risks and next task
 
