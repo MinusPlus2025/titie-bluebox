@@ -92,6 +92,7 @@ Simulated or not yet validated:
 - Chinese-copy regression baseline: 77 tests passed; `npm run typecheck` and `npm run build` passed. A 390 × 844 browser pass verified the three night summaries, week/month views, feedback confirmation, all nine My-page panels, six RegionSheets, and zero horizontal overflow. Production QA also exposed and fixed a RegionSheet loading-state crash before final release.
 - “关于体贴” now uses the approved formal product introduction: it explains the regional thermal decision loop, avoids internal architecture/AI/medical claims, and places the prototype/simulation boundary only in the product-boundary and version information. The existing About Sheet visual structure is unchanged.
 - Final copy-release regression baseline: 78 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. Browser QA confirmed the complete About copy, no banned legacy phrases, no extra scrolling, and no horizontal overflow.
+- The Chinese-copy/loading-fallback release and approved About introduction are published on `main` through commit `2217b81` and active at `https://titie-bluebox.vercel.app/`. Production checks confirmed the new About copy and a working shoulder RegionSheet immediately after page load.
 
 ## Current risks and next task
 

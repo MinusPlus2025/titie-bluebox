@@ -6,6 +6,7 @@
 - Internal architecture language and standalone `Prototype Simulation` branding were removed from the introduction. Prototype sensor/actuator limits remain explicit in the product-boundary paragraph and `Hackathon Prototype · 2026` version line.
 - The existing About Sheet component and visual design were not changed; the frozen domain core and `/api/evaluate` behavior remain untouched.
 - Current local verification: `npm test` → 78 passed; `npm run typecheck` → passed; `npm run build` → passed; `git diff --check` → passed. Browser QA confirmed the full copy is present and the sheet has no horizontal overflow.
+- Release commit `2217b81` is active in Production. The deployed About Sheet contains the approved copy, and the RegionSheet loading fallback opens without crashing immediately after a fresh page load.
 - Next owner action: review the released About copy. Do not expand features or redesign the final UI.
 
 ## 2026-08-30 — Full-product Chinese copy review
