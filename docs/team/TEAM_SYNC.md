@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-30
-Current phase: Final Release — expert safety, evidence, and accessibility hardening complete
+Current phase: Final Release — user-facing information boundary complete
 
 ## Verified baseline
 
@@ -101,6 +101,10 @@ Simulated or not yet validated:
 - Native buttons, dialog semantics, Escape close, visible keyboard focus, and reduced-motion support were added to the primary product flow while preserving the approved visual composition.
 - Expert-hardening regression baseline: 82 tests passed; `npm run typecheck` and `npm run build` passed. Mobile browser evidence is stored in `docs/submission/screenshots/expert-audit-2026-08-30/`.
 - Expert-hardening release commit `0ad06f3` is published on `main` and active at `https://titie-bluebox.vercel.app/`; Production checks confirmed the new Home simulation label and fixed Validation scope/percentage-point display.
+- User-facing information boundary tightened: ordinary RegionSheet surfaces now stop at natural-language reasons, current data state, and reevaluation timing. Confidence values, temperature slopes, zone deltas, similar-episode counts, Engine/Control fields, and raw reason codes are no longer rendered to users.
+- Public `/validation` is now a plain-language “调节方式对比” surface. It keeps the real Validation Runner results and the honest 5-scenario/30-decision demonstration scope, but removes the live raw decision/diagnostic dump and internal enums.
+- Home, device/privacy panels, month history, and About use `演示数据 / 演示版本 / 体验模式` instead of prototype, simulation, architecture, or API language. The real-versus-demonstration boundary remains explicit.
+- User-boundary regression baseline: 82 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. A 390 × 844 browser pass covered Home, expanded RegionSheet, About, and `/validation`.
 
 ## Current risks and next task
 

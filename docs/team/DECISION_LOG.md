@@ -1,5 +1,15 @@
 # DECISION LOG
 
+## 2026-08-30 — Internal evidence is not user-interface content
+
+Decision: users see the thermal result, natural-language reasons, the current action, data availability, and when the product will look again. They do not see confidence percentages, raw sensor enums, feature slopes, zone deltas, similar-episode counts, Engine actions, ControlCommand fields, raw reason codes, API wording, or algorithm names.
+
+Validation boundary: the public comparison page may show the three strategy outcomes and a clearly labeled demonstration scope, but not a live internal decision dump. The underlying Validation Runner output remains unchanged and tested.
+
+Truth boundary: simulation disclosure remains mandatory, but ordinary pages phrase it as `演示数据`, `演示版本`, or `体验模式`. This keeps the product honest without asking users to understand development terminology.
+
+Implementation boundary: no changes were made to Thermal Engine, Sensor Quality, Similar Episode Personalization, Control Contract, Validation Runner, or API decision behavior.
+
 ## 2026-08-30 — Make evidence scope and failure truth visible
 
 Decision: ordinary product surfaces describe Engine outputs as desired adjustments (`想暖一点 / 刚刚好 / 想凉一点`) and always disclose the simulated monitoring boundary. Technical Validation shows the fixed synthetic sample count, numerator/denominator, and percentage-point gain instead of presenting percentages without scope.

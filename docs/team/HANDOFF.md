@@ -1,5 +1,14 @@
 # HANDOFF
 
+## 2026-08-30 — User-facing information boundary
+
+- RegionSheet now ends after human-readable reasons and a simple data-state/reevaluation summary. Internal evidence remains available to code, APIs, tests, and domain debugging but is not rendered in the product UI.
+- `/validation` is now titled `调节方式对比`, retains real strategy results and the explicit 5-scenario/30-decision demonstration scope, and removes raw live-decision diagnostics and backend identifiers.
+- About, device/privacy, month history, and Home monitoring use natural demonstration-language while preserving the no-real-hardware boundary.
+- Frozen domain modules and `/api/evaluate` behavior are unchanged.
+- Verification: `npm test` → 82 passed; `npm run typecheck` → passed; `npm run build` → passed; `git diff --check` → passed. Browser QA at 390 × 844 confirmed no banned engineering terms on Home, expanded RegionSheet, About, or public Validation.
+- Next owner action: review the simplified information hierarchy. Further changes should remain copy/presentation-only unless a reproducible core defect is found.
+
 ## 2026-08-30 — Expert safety and evidence hardening
 
 - The product was audited from sleep-engineering, product-safety, evidence-integrity, accessibility, and demo-readiness perspectives. The frozen domain core was not changed.

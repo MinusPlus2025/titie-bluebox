@@ -32,20 +32,20 @@ describe("Eazo frontend integration", () => {
     expect(sleepHtml).toContain("冷暖调节");
     expect(feedbackHtml).toContain("睡醒了。");
     expect(feedbackHtml).toContain("如果再遇到这样的情况，你希望这里？");
-    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype Simulation|Digital Twin/);
+    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype Simulation|Digital Twin|决策系统|温控指令|产品闭环|原型模拟|Hackathon Prototype/);
   });
 
-  it("presents About as a product introduction with an explicit prototype boundary", () => {
+  it("presents About in user language with a plain product boundary", () => {
     expect(mePanels.about.lines).toEqual([
       "体贴",
       "知冷暖，好好睡。",
-      "体贴是一套个体化睡眠冷暖决策系统。它结合不同身体区域的温湿度、接触状态和个人反馈，持续判断哪里需要暖一点、凉一点，或暂时保持不变，并把判断转化为分区温控指令。",
-      "体贴不寻找一个适合所有人的“最佳温度”，而是关注同一个人在不同时间、不同身体区域不断变化的冷暖感受。",
-      "当前版本用于验证“感知—判断—调节—反馈”的产品闭环。传感数据与温控执行部分采用原型模拟，尚未接入真实睡眠硬件。",
+      "体贴会参考不同身体位置的变化和你的反馈，看看哪里需要暖一点、凉一点，或保持刚刚好。",
+      "它不替所有人设定同一个温度，而是关注你在不同时间、不同位置的冷暖感受。",
+      "当前为演示版本，尚未连接真实睡眠设备。页面中的记录和调节均为演示内容。",
       "版本信息",
-      "Hackathon Prototype · 2026",
+      "体验版本 · 2026",
     ]);
-    expect(mePanels.about.lines.join(" ")).not.toMatch(/个人睡眠冷暖决策层|Prototype Simulation|AI智能|更懂女性/);
+    expect(mePanels.about.lines.join(" ")).not.toMatch(/决策系统|温控指令|产品闭环|传感数据|原型模拟|Prototype|Simulation|AI智能|更懂女性/);
   });
 
   it("renders a natural RegionSheet fallback while live evaluation is loading", () => {
@@ -56,8 +56,7 @@ describe("Eazo frontend integration", () => {
     }));
 
     expect(html).toContain("为什么暖一点");
-    expect(html).toContain("原型模拟");
-    expect(html).not.toContain("Prototype Simulation");
+    expect(html).not.toMatch(/技术详情|温度变化率|局部与身体温差|置信度|原型模拟|Prototype Simulation/);
   });
 
   it("anchors the shoulder marker on the visible upper-back area", () => {
@@ -77,7 +76,7 @@ describe("Eazo frontend integration", () => {
 
     expect(html).toContain("想凉一点");
     expect(html).toContain("想暖一点");
-    expect(html).toContain("原型模拟 · 每5分钟更新一次");
+    expect(html).toContain("演示数据 · 每5分钟更新一次");
     expect(html).not.toMatch(/偏热|偏凉|正在监测中/);
     expect(html).toContain("<button");
   });
@@ -144,7 +143,7 @@ describe("Eazo frontend integration", () => {
     expect(decision.diagnostics).toMatchObject({ similarEpisodeCount: expect.any(Number) });
   });
 
-  it("keeps HOLD user language separate from real technical diagnostics", () => {
+  it("keeps HOLD user language separate from all internal diagnostics", () => {
     const decision = evaluateThermalPreference(evaluationPayload("neck"));
     expect(decision.action).toBe("HOLD");
     const html = renderToStaticMarkup(createElement(RegionSheet, {
@@ -156,13 +155,7 @@ describe("Eazo frontend integration", () => {
     expect(html).toContain('<details class="disclose">');
     expect(html).toContain("为什么先不调");
     expect(html).toContain("数据状态正常");
-    expect(html).toContain("技术详情");
-    expect(html).toContain("温度变化率");
-    expect(html).toContain("局部与身体温差");
-    expect(html).not.toContain("ControlCommand");
-    expect(html).not.toContain("Engine action");
-    expect(html).not.toContain("LOW_CONFIDENCE_HOLD");
-    expect(html).not.toContain(">GOOD<");
+    expect(html).not.toMatch(/技术详情|温度变化率|局部与身体温差|相似状态数量|ControlCommand|Engine action|LOW_CONFIDENCE_HOLD|>GOOD<|原型模拟/);
   });
 
   it("uses action-specific evidence titles and real reason translations", () => {
@@ -188,21 +181,15 @@ describe("Eazo frontend integration", () => {
     expect(invalid.lead.join(" ")).toContain("已经暂停动作");
   });
 
-  it("keeps engineering evidence on validation instead of the user sheet", () => {
+  it("keeps raw engineering evidence out of the public validation surface", () => {
     const decision = evaluateThermalPreference(evaluationPayload("knee"));
     const html = renderToStaticMarkup(createElement(ValidationScreen as any, {
       initialDecision: decision,
       initialReport: { reports: [] },
     }));
 
-    expect(html).toContain("实时决策示例");
-    expect(html).toContain("Sensor Quality");
-    expect(html).toContain("Engine Action");
-    expect(html).toContain("ControlCommand");
-    expect(html).toContain("Reason Codes");
-    expect(html).toContain("Diagnostics");
-    expect(html).toContain("LOCAL_TEMP_FALLING");
-    expect(html).toContain("Prototype Simulation");
+    expect(html).not.toMatch(/实时决策示例|Sensor Quality|Engine Action|ControlCommand|Reason Codes|Diagnostics|LOCAL_TEMP_FALLING|Prototype Simulation|WARM|HOLD|COOL/);
+    expect(html).toContain("演示结果");
   });
 
   it("formats the Validation Runner rate object instead of rendering NaN", () => {
@@ -229,8 +216,8 @@ describe("Eazo frontend integration", () => {
     };
     const html = renderToStaticMarkup(createElement(ValidationScreen as any, { initialReport: report }));
 
-    expect(html).toContain("5个合成场景 · 30个区域判断");
-    expect(html).toContain("固定合成数据集");
+    expect(html).toContain("5个演示场景 · 30次分区判断");
+    expect(html).toContain("固定演示场景");
     expect(html).toContain("+3.3 个百分点");
   });
 

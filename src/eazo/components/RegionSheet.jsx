@@ -55,7 +55,7 @@ export default function RegionSheet({ regionKey, decision, onClose }) {
             </div>
             <div className="sheet-hint">{data.hint}</div>
 
-            {/* 用户解释优先，工程参数置于二级折叠层。 */}
+            {/* 用户只看到自然语言原因；工程参数保留在内部接口与测试中。 */}
             <details className="disclose" key={regionKey}>
               <summary className="disclose-trigger">
                 <span>{data.evidenceTitle}</span>
@@ -74,21 +74,6 @@ export default function RegionSheet({ regionKey, decision, onClose }) {
                   <div><strong>{data.dataStatus}</strong><span>{data.confidenceLabel}</span></div>
                   <span>{data.reevaluateLabel}</span>
                 </div>
-                <details className="technical-disclose">
-                  <summary className="technical-trigger">
-                    <span>技术详情</span>
-                    <Icon name="chev" />
-                  </summary>
-                  <div className="evidence-list">
-                    {data.technicalEvidence.map(([k, v]) => (
-                      <div key={k} className="evidence-row">
-                        <span className="er-label">{k}</span>
-                        <span className="er-val">{v}</span>
-                      </div>
-                    ))}
-                  </div>
-                </details>
-                <span className="sim-badge"><span className="sb-dot2" />原型模拟</span>
               </div>
             </details>
           </div>

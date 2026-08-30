@@ -74,6 +74,10 @@
 - [x] Added native button/dialog/tab semantics, Escape close, keyboard focus visibility, and reduced-motion safeguards without redesigning the approved Eazo visual system.
 - [x] Added fixed synthetic sample scope, metric counts, definitions, and percentage-point Personalization Gain to Technical Validation.
 - [x] Added four expert-hardening regression tests and completed 390 × 844 browser checks for Home, RegionSheet, DEGRADED, Feedback, and Validation; final baseline is 82/82 tests plus passing typecheck/build.
+- [x] Removed user-visible technical details from RegionSheet while keeping the real Engine output behind the presentation adapter.
+- [x] Reframed the public Validation page as a plain-language adjustment comparison and removed raw Engine, sensor, command, diagnostic, and reason-code fields.
+- [x] Rewrote Home boundary, device/privacy, month-history, and About copy to use natural `演示数据 / 演示版本 / 体验模式` language without hiding the simulated-product boundary.
+- [x] Added regression guards that reject internal engineering terms on ordinary and public validation surfaces; verified 82/82 tests plus passing typecheck/build and 390 × 844 browser QA.
 
 ## Blocked
 
