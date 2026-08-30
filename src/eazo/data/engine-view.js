@@ -114,7 +114,17 @@ function technicalEvidenceFor(decision) {
 }
 
 export function engineSheet(decision, fallback) {
-  if (!decision) return fallback
+  if (!decision) {
+    return {
+      ...fallback,
+      evidenceTitle: fallback.dir === '暖一点' ? '为什么暖一点' : fallback.dir === '凉一点' ? '为什么凉一点' : '为什么先不调',
+      userReasons: fallback.lead,
+      dataStatus: '正在读取当前数据',
+      confidenceLabel: '等待当前判断',
+      reevaluateLabel: '读取完成后更新',
+      technicalEvidence: fallback.evidence || [],
+    }
+  }
   const userReasons = userReasonsFor(decision)
   const unsafe = decision.sensorQuality !== 'GOOD'
   return {

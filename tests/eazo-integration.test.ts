@@ -34,6 +34,18 @@ describe("Eazo frontend integration", () => {
     expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype|Simulation|Digital Twin/);
   });
 
+  it("renders a natural RegionSheet fallback while live evaluation is loading", () => {
+    const html = renderToStaticMarkup(createElement(RegionSheet, {
+      regionKey: "knee",
+      decision: null,
+      onClose: () => undefined,
+    }));
+
+    expect(html).toContain("为什么暖一点");
+    expect(html).toContain("原型模拟");
+    expect(html).not.toContain("Prototype Simulation");
+  });
+
   it("anchors the shoulder marker on the visible upper-back area", () => {
     expect(BODY_MARKER_POSITIONS.shoulder).toEqual({ top: "25.5%", left: "76%" });
   });

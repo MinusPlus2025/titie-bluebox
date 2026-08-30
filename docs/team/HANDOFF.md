@@ -5,7 +5,8 @@
 - Active Eazo user copy has been reviewed end to end; “这一觉”, numeric “觉” counters, user-facing HOLD, “主动干预”, and untranslated Prototype/Digital Twin fallback text were removed from ordinary surfaces.
 - Sleep history now uses direct time ranges, “夜间记录”, “冷暖调节”, natural three-night summaries, and “入睡 / 醒来” timeline endpoints.
 - Feedback, confirmation, similar-situation language, and all My-page informational panels now use concise Chinese while preserving the simulated-evidence boundary.
-- Current local verification: `npm test` → 76 passed; `npm run typecheck` → passed; `npm run build` → passed; 390 × 844 browser QA found zero horizontal overflow.
+- Production QA found a loading-state RegionSheet crash when a zone opened before its live evaluation arrived. The presentation fallback is now complete and covered by regression test; Engine/API behavior is unchanged.
+- Current local verification: `npm test` → 77 passed; `npm run typecheck` → passed; `npm run build` → passed; 390 × 844 browser QA found zero horizontal overflow.
 
 ## 2026-08-30 — Final evidence hierarchy
 

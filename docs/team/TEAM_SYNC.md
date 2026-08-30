@@ -89,7 +89,7 @@ Simulated or not yet validated:
 - Information-hierarchy regression baseline: 75 tests passed; `npm run typecheck` and `npm run build` passed. Local 390 × 844 browser checks covered HOLD/WARM/COOL disclosures and the Technical Validation evidence surface.
 - The evidence-hierarchy release is published on `main` in commit `db82bcf` and active at `https://titie-bluebox.vercel.app/`. Production verification confirmed the human-first RegionSheet, live Technical Validation example, Prototype Simulation label, and zero browser console warnings/errors.
 - Full-product Chinese copy review completed across 体贴, 好好睡, 睡后反馈, 我的, and all six RegionSheets. Unnatural sleep counters and phrases such as “这一觉”, “5觉”, and user-facing HOLD/Prototype/Digital Twin language were replaced with concise night-based Chinese; engineering terms remain limited to Technical Details and `/validation`.
-- Chinese-copy regression baseline: 76 tests passed; `npm run typecheck` and `npm run build` passed. A 390 × 844 browser pass verified the three night summaries, week/month views, feedback confirmation, all nine My-page panels, six RegionSheets, and zero horizontal overflow.
+- Chinese-copy regression baseline: 77 tests passed; `npm run typecheck` and `npm run build` passed. A 390 × 844 browser pass verified the three night summaries, week/month views, feedback confirmation, all nine My-page panels, six RegionSheets, and zero horizontal overflow. Production QA also exposed and fixed a RegionSheet loading-state crash before final release.
 
 ## Current risks and next task
 
