@@ -61,11 +61,12 @@ export default function MeScreen() {
       </div>
 
       <div style={{ height: 20 }} />
-      <div className={'sheet-scrim' + (panel ? ' open' : '')} onClick={() => setPanelKey(null)} />
-      <div className={'sheet preference-sheet' + (panel ? ' open' : '')}>
-        <div className="sheet-grab" />
+      <div className={'sheet-scrim' + (panel ? ' open' : '')} onClick={() => setPanelKey(null)} aria-hidden="true" />
+      <div className={'sheet preference-sheet' + (panel ? ' open' : '')} role="dialog" aria-modal="true"
+        aria-hidden={!panel} aria-labelledby={panel ? 'preference-sheet-title' : undefined}>
+        <button type="button" className="sheet-grab" onClick={() => setPanelKey(null)} aria-label="关闭设置详情" />
         {panel && <div className="sheet-body">
-          <div className="preference-title">{panel.title}</div>
+          <div className="preference-title" id="preference-sheet-title">{panel.title}</div>
           {panel.note && <div className="preference-note">{panel.note}</div>}
           {panel.options?.map((option) => (
             <button key={option} className={'preference-option' + (settings[panelKey] === option ? ' active' : '')}

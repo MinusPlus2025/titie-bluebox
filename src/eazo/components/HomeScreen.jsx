@@ -13,7 +13,17 @@ export const BODY_MARKER_POSITIONS = {
 export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegion, onTurn, theme, onToggleTheme }) {
   const shoulderTone = decisions.shoulder?.action === 'WARM' ? 'warm' : decisions.shoulder?.action === 'HOLD' ? 'steady' : 'cool'
   const kneeTone = decisions.knee?.action === 'COOL' ? 'cool' : decisions.knee?.action === 'HOLD' ? 'steady' : 'warm'
-  const statusFor = (decision, fallback) => decision?.action === 'WARM' ? '偏凉' : decision?.action === 'COOL' ? '偏热' : decision?.action === 'HOLD' ? '刚刚好' : fallback
+  const preferenceFor = (decision, tone = 'steady') => decision?.action === 'WARM'
+    ? '想暖一点'
+    : decision?.action === 'COOL'
+      ? '想凉一点'
+      : decision?.action === 'HOLD'
+        ? '刚刚好'
+        : tone === 'warm'
+          ? '想暖一点'
+          : tone === 'cool'
+            ? '想凉一点'
+            : '刚刚好'
   return (
     <div className="immersive">
       <div className="immersive-photo" style={{ backgroundImage: `url(${figure})` }} />
@@ -25,49 +35,49 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
         <span className="hud-time">{ambient.time}</span>
         <span className="hud-chip"><Icon name="temp" /><b>{ambient.temp}</b></span>
         <span className="hud-chip"><Icon name="humidity" /><b>{ambient.humidity}</b></span>
-        <span className="theme-toggle" onClick={onToggleTheme} role="button"
-          title="切换白天 / 夜晚" aria-label="切换白天夜晚">
+        <button type="button" className="theme-toggle" onClick={onToggleTheme}
+          title="切换白天 / 夜晚" aria-label="切换白天夜晚" aria-pressed={theme === 'day'}>
           <Icon name={theme === 'night' ? 'sun' : 'moondot'} />
           {theme === 'night' ? '白天' : '夜晚'}
-        </span>
+        </button>
       </div>
 
       {/* 左侧 6 部位菜单 */}
       <div className="rail">
         {regions.map((r) => (
-          <div
+          <button
+            type="button"
             key={r.key}
             className={'rail-item ' + (decisions[r.key]?.action === 'WARM' ? 'warm' : decisions[r.key]?.action === 'COOL' ? 'cool' : r.tone)}
             onClick={() => onOpenRegion(r.key)}
-            role="button"
             aria-label={r.name}
           >
             <span className="rail-ic"><Icon name={r.icon} /></span>
             <span className="rail-name">{r.name}</span>
-            <span className="rail-status">{decisions[r.key]?.action === 'WARM' ? '偏凉' : decisions[r.key]?.action === 'COOL' ? '偏热' : r.status}</span>
-          </div>
+            <span className="rail-status">{preferenceFor(decisions[r.key], r.tone)}</span>
+          </button>
         ))}
       </div>
 
       {!degrade && (
         <>
           {/* 发光圆点标注 —— 颜色表示"产品动作"：偏热→需要凉一点(蓝) / 偏凉→需要暖一点(橙) */}
-          <div className={'glowdot shoulder-marker ' + shoulderTone} style={{ top: BODY_MARKER_POSITIONS.shoulder.top, left: BODY_MARKER_POSITIONS.shoulder.left }}
-            onClick={() => onOpenRegion('shoulder')} role="button" aria-label="肩背">
+          <button type="button" className={'glowdot shoulder-marker ' + shoulderTone} style={{ top: BODY_MARKER_POSITIONS.shoulder.top, left: BODY_MARKER_POSITIONS.shoulder.left }}
+            onClick={() => onOpenRegion('shoulder')} aria-label="肩背">
             <span className="gd-orb" />
-            <span className="gd-label">肩背<span className="gl-s">{statusFor(decisions.shoulder, '偏热')}</span></span>
-          </div>
-          <div className={'glowdot ' + kneeTone} style={{ top: BODY_MARKER_POSITIONS.knee.top, left: BODY_MARKER_POSITIONS.knee.left }}
-            onClick={() => onOpenRegion('knee')} role="button" aria-label="膝腿">
+            <span className="gd-label">肩背<span className="gl-s">{preferenceFor(decisions.shoulder, 'cool')}</span></span>
+          </button>
+          <button type="button" className={'glowdot ' + kneeTone} style={{ top: BODY_MARKER_POSITIONS.knee.top, left: BODY_MARKER_POSITIONS.knee.left }}
+            onClick={() => onOpenRegion('knee')} aria-label="膝腿">
             <span className="gd-orb" />
-            <span className="gd-label">膝腿<span className="gl-s">{statusFor(decisions.knee, '偏凉')}</span></span>
-          </div>
+            <span className="gd-label">膝腿<span className="gl-s">{preferenceFor(decisions.knee, 'warm')}</span></span>
+          </button>
         </>
       )}
 
       {/* 翻身 / 数据暂时不稳定 —— 安静态 */}
       {degrade && (
-        <div className="imm-note">
+        <div className="imm-note" role="status" aria-live="polite">
           <div className="in-strong">先不调整，继续观察。</div>
           <div className="in-sub">你刚翻了个身，局部接触还在恢复。<br />拿不准的时候，不急着调。</div>
         </div>
@@ -75,10 +85,10 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
 
       {/* 底部监测中（轻触演示：翻身后先不调整） */}
       <div className="monitor">
-        <div className="monitor-inner" onClick={onTurn} role="button" title="演示：翻身后先不调整">
+        <button type="button" className="monitor-inner" onClick={onTurn} title="演示：翻身后先不调整">
           <span className="mn-pulse" />
-          {degrade ? '接触正在恢复 · 暂时不调' : '正在监测中 · 每5分钟更新一次'}
-        </div>
+          {degrade ? '模拟接触恢复 · 暂时不调' : '原型模拟 · 每5分钟更新一次'}
+        </button>
         {apiFallback && <div className="api-fallback">原型模拟 · 暂时使用本地演示数据</div>}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Icon from './Icon.jsx'
 import { sheets } from '../data/content.js'
 import { actionTone, engineSheet } from '../data/engine-view.js'
@@ -7,18 +7,35 @@ export default function RegionSheet({ regionKey, decision, onClose }) {
   const open = !!regionKey
   const data = regionKey ? engineSheet(decision, sheets[regionKey]) : null
   const tone = decision ? actionTone(decision) : regionKey === 'knee' ? 'warm' : regionKey === 'shoulder' ? 'cool' : 'steady'
+  const sheetRef = useRef(null)
+  const previousFocus = useRef(null)
+
+  useEffect(() => {
+    if (!open) return undefined
+    previousFocus.current = document.activeElement
+    sheetRef.current?.focus()
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      previousFocus.current?.focus?.()
+    }
+  }, [onClose, open])
 
   return (
     <>
-      <div className={'sheet-scrim' + (open ? ' open' : '')} onClick={onClose} />
-      <div className={'sheet' + (open ? ' open' : '')}>
-        <div className="sheet-grab" />
+      <div className={'sheet-scrim' + (open ? ' open' : '')} onClick={onClose} aria-hidden="true" />
+      <div ref={sheetRef} className={'sheet' + (open ? ' open' : '')} role="dialog" aria-modal="true"
+        aria-hidden={!open} aria-labelledby={open ? 'region-sheet-title' : undefined} tabIndex={-1}>
+        <button type="button" className="sheet-grab" onClick={onClose} aria-label="关闭区域详情" />
         {data && (
           <div className="sheet-body">
             <div className={'sheet-head to-' + tone}>
               <span className="sh-ic"><Icon name={tone === 'steady' ? 'steady' : tone} /></span>
               <div>
-                <div className="sh-title">{data.region}</div>
+                <div className="sh-title" id="region-sheet-title">{data.region}</div>
                 <div className="sh-sub">{data.dir}</div>
               </div>
             </div>

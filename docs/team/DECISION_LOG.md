@@ -1,5 +1,15 @@
 # DECISION LOG
 
+## 2026-08-30 — Make evidence scope and failure truth visible
+
+Decision: ordinary product surfaces describe Engine outputs as desired adjustments (`想暖一点 / 刚刚好 / 想凉一点`) and always disclose the simulated monitoring boundary. Technical Validation shows the fixed synthetic sample count, numerator/denominator, and percentage-point gain instead of presenting percentages without scope.
+
+Safety and trust rule: DEGRADED contact remains a calm HOLD state, while failed feedback submission must remain an error/retry state and must never be presented as learned personalization.
+
+Accessibility rule: primary interactive surfaces use native controls and dialog/tab semantics, visible focus, Escape close, and reduced-motion support. The approved Eazo visual composition remains unchanged.
+
+Implementation boundary: no changes were made to the frozen Thermal Engine, Sensor Quality, Control Contract, Similar Episode Personalization, Validation Runner, or `/api/evaluate` decision logic.
+
 ## 2026-08-30 — Use night-based Chinese on ordinary product surfaces
 
 Decision: describe sleep history with dates, nights, and direct events rather than treating “觉” as a counter or repeatedly saying “这一觉”. Ordinary surfaces use concise Chinese such as “夜间记录”, “冷暖调节”, “最近一周”, and “参考过的相似状态”.

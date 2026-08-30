@@ -1,5 +1,16 @@
 # HANDOFF
 
+## 2026-08-30 — Expert safety and evidence hardening
+
+- The product was audited from sleep-engineering, product-safety, evidence-integrity, accessibility, and demo-readiness perspectives. The frozen domain core was not changed.
+- Home now uses preference language and always labels monitoring as prototype simulation. The contact-recovery demo remains a real DEGRADED → safe HOLD Engine path with a higher-contrast, non-alarm presentation.
+- Feedback success is now truthful: `记住了` appears only after `/api/feedback` succeeds; failures remain retryable without changing personalization evidence.
+- Technical Validation now exposes its fixed scope (5 synthetic scenarios / 30 zone decisions), metric counts, definitions, and percentage-point Personalization Gain.
+- Primary controls are native buttons/tabs; RegionSheet is a keyboard-addressable dialog with Escape close; focus-visible and reduced-motion safeguards are present.
+- Verification: `npm test` → 82 passed; `npm run typecheck` → passed; `npm run build` → passed. Browser captures are in `docs/submission/screenshots/expert-audit-2026-08-30/`.
+- Remaining boundary: real sensor/actuator integration, time synchronization, placement calibration, safety verification, and prospective field/human validation are not implemented and must not be inferred from this prototype.
+- Next owner action: review this bounded hardening release. Do not add algorithm complexity from the current five-scenario synthetic dataset.
+
 ## 2026-08-30 — About product introduction
 
 - “关于体贴” now uses the product-owner-approved introduction and describes the regional sensing, decision, adjustment, and feedback loop in user-facing language.

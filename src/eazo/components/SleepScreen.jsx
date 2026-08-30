@@ -22,9 +22,10 @@ export default function SleepScreen({ onOpenFeedback }) {
         <button className="ds-arrow" disabled={!canNext} aria-label="下一晚" onClick={() => canNext && setSessionIndex((i) => i + 1)}><Icon name="right" /></button>
       </div>
 
-      <div className="seg">
+      <div className="seg" role="tablist" aria-label="睡眠记录范围">
         {['日', '周', '月'].map((s) => (
-          <div key={s} className={'seg-item' + (seg === s ? ' active' : '')} onClick={() => setSeg(s)} role="button">{s}</div>
+          <button type="button" role="tab" aria-selected={seg === s} key={s}
+            className={'seg-item' + (seg === s ? ' active' : '')} onClick={() => setSeg(s)}>{s}</button>
         ))}
       </div>
 
@@ -64,10 +65,10 @@ export default function SleepScreen({ onOpenFeedback }) {
       )}
 
       {/* 轻量入口：睡后反馈（不在底部导航里） */}
-      <div className="fb-entry" onClick={onOpenFeedback} role="button">
+      <button type="button" className="fb-entry" onClick={onOpenFeedback}>
         <span className="fe-t">睡后反馈 · 说说这晚的冷暖</span>
         <span className="fe-chev"><Icon name="chev" /></span>
-      </div>
+      </button>
     </>
   )
 }

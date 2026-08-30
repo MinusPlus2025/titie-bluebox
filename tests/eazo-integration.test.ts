@@ -1,16 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { readFileSync } from "node:fs";
 
 import { evaluationPayload, feedbackPayload, ZONE_KEY_MAP } from "../src/services/titieApi.js";
 import { engineSheet } from "../src/eazo/data/engine-view.js";
 import { evaluateThermalPreference } from "../src/api/services.js";
-import { BODY_MARKER_POSITIONS } from "../src/eazo/components/HomeScreen.jsx";
+import HomeScreen, { BODY_MARKER_POSITIONS } from "../src/eazo/components/HomeScreen.jsx";
 import RegionSheet from "../src/eazo/components/RegionSheet.jsx";
 import FeedbackScreen from "../src/eazo/components/FeedbackScreen.jsx";
 import SleepScreen from "../src/eazo/components/SleepScreen.jsx";
 import { feedback, feedbackRegions, mePanels, monthStats, regions, sessions, weekStats } from "../src/eazo/data/content.js";
-import ValidationScreen, { formatValidationRate } from "../src/eazo/components/ValidationScreen.jsx";
+import ValidationScreen, { formatValidationGain, formatValidationMetric, formatValidationRate } from "../src/eazo/components/ValidationScreen.jsx";
 
 const fallback = {
   region: "膝腿",
@@ -61,6 +62,48 @@ describe("Eazo frontend integration", () => {
 
   it("anchors the shoulder marker on the visible upper-back area", () => {
     expect(BODY_MARKER_POSITIONS.shoulder).toEqual({ top: "25.5%", left: "76%" });
+  });
+
+  it("uses preference language and an always-visible simulation boundary on Home", () => {
+    const html = renderToStaticMarkup(createElement(HomeScreen, {
+      degrade: false,
+      decisions: { shoulder: { action: "COOL" }, knee: { action: "WARM" } },
+      apiFallback: false,
+      onOpenRegion: () => undefined,
+      onTurn: () => undefined,
+      theme: "night",
+      onToggleTheme: () => undefined,
+    }));
+
+    expect(html).toContain("想凉一点");
+    expect(html).toContain("想暖一点");
+    expect(html).toContain("原型模拟 · 每5分钟更新一次");
+    expect(html).not.toMatch(/偏热|偏凉|正在监测中/);
+    expect(html).toContain("<button");
+  });
+
+  it("gives overlays, segmented controls, and feedback choices native accessible semantics", () => {
+    const regionHtml = renderToStaticMarkup(createElement(RegionSheet, {
+      regionKey: "knee",
+      decision: null,
+      onClose: () => undefined,
+    }));
+    const sleepHtml = renderToStaticMarkup(createElement(SleepScreen, { onOpenFeedback: () => undefined }));
+    const feedbackHtml = renderToStaticMarkup(createElement(FeedbackScreen, { onClose: () => undefined }));
+
+    expect(regionHtml).toContain('role="dialog"');
+    expect(regionHtml).toContain('aria-modal="true"');
+    expect(regionHtml).toContain('aria-label="关闭区域详情"');
+    expect(sleepHtml).toContain('role="tablist"');
+    expect(sleepHtml).toContain('aria-selected="true"');
+    expect(feedbackHtml).toContain('aria-label="返回睡眠记录"');
+    expect(feedbackHtml).toContain('aria-pressed="false"');
+  });
+
+  it("includes reduced-motion and keyboard-focus safeguards", () => {
+    const css = readFileSync(new URL("../src/eazo/styles.css", import.meta.url), "utf8");
+    expect(css).toContain("prefers-reduced-motion: reduce");
+    expect(css).toContain(":focus-visible");
   });
 
   it("uses the approved six-zone backend mapping", () => {
@@ -165,6 +208,30 @@ describe("Eazo frontend integration", () => {
   it("formats the Validation Runner rate object instead of rendering NaN", () => {
     expect(formatValidationRate({ numerator: 23, denominator: 30, rate: 0.7667 })).toBe("76.7%");
     expect(formatValidationRate(0.0333)).toBe("3.3%");
+    expect(formatValidationMetric({ numerator: 30, denominator: 30, rate: 1 })).toBe("30/30 · 100.0%");
+    expect(formatValidationGain(0.0333)).toBe("+3.3 个百分点");
+  });
+
+  it("states the fixed synthetic validation scope instead of presenting a generic accuracy claim", () => {
+    const report = {
+      datasetId: "phase-2-synthetic-v1",
+      reports: [{
+        strategyId: "titie-personalized",
+        observationCount: 5,
+        metrics: {
+          preferenceMatch: { numerator: 30, denominator: 30, rate: 1 },
+          unnecessaryIntervention: { numerator: 0, denominator: 30, rate: 0 },
+          wholeBedOvercorrection: { numerator: 0, denominator: 30, rate: 0 },
+          directionReversal: { numerator: 0, denominator: 24, rate: 0 },
+        },
+        personalizationGain: 0.0333,
+      }],
+    };
+    const html = renderToStaticMarkup(createElement(ValidationScreen as any, { initialReport: report }));
+
+    expect(html).toContain("5个合成场景 · 30个区域判断");
+    expect(html).toContain("固定合成数据集");
+    expect(html).toContain("+3.3 个百分点");
   });
 
   it("builds the turn demo from a real DEGRADED engine response", () => {

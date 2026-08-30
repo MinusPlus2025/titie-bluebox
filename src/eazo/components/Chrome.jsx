@@ -20,16 +20,17 @@ export function BottomNav({ active, onChange }) {
   return (
     <div className="tabbar">
       {TABS.map((t) => (
-        <div
+        <button
+          type="button"
           key={t.key}
           className={'tab-item' + (active === t.key ? ' active' : '')}
           onClick={() => onChange(t.key)}
-          role="button"
           aria-label={t.label}
+          aria-current={active === t.key ? 'page' : undefined}
         >
           <Icon name={t.icon} />
           <span className="tb-l">{t.label}</span>
-        </div>
+        </button>
       ))}
     </div>
   )

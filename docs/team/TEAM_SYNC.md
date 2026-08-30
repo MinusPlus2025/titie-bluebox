@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-30
-Current phase: Final Release — product copy and About boundary complete
+Current phase: Final Release — expert safety, evidence, and accessibility hardening complete
 
 ## Verified baseline
 
@@ -93,6 +93,13 @@ Simulated or not yet validated:
 - “关于体贴” now uses the approved formal product introduction: it explains the regional thermal decision loop, avoids internal architecture/AI/medical claims, and places the prototype/simulation boundary only in the product-boundary and version information. The existing About Sheet visual structure is unchanged.
 - Final copy-release regression baseline: 78 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. Browser QA confirmed the complete About copy, no banned legacy phrases, no extra scrolling, and no horizontal overflow.
 - The Chinese-copy/loading-fallback release and approved About introduction are published on `main` through commit `2217b81` and active at `https://titie-bluebox.vercel.app/`. Production checks confirmed the new About copy and a working shoulder RegionSheet immediately after page load.
+- Sleep-engineering/product expert audit completed without changing the frozen Engine, Sensor Quality, Control Contract, Similar Episode Personalization, or Validation Runner.
+- Ordinary thermal states now use preference language (`想暖一点 / 刚刚好 / 想凉一点`) instead of implying that simulated sensors directly know the user's subjective sensation.
+- The Home monitoring control always states `原型模拟`; DEGRADED contact recovery is presented as a calm, readable safe HOLD state.
+- Feedback confirmation is now transactional: a failed `/api/feedback` request shows a retry message and can no longer falsely claim `记住了`.
+- Technical Validation now states the fixed evidence scope (`5个合成场景 · 30个区域判断`), displays numerator/denominator with rates, and reports Personalization Gain in percentage points.
+- Native buttons, dialog semantics, Escape close, visible keyboard focus, and reduced-motion support were added to the primary product flow while preserving the approved visual composition.
+- Expert-hardening regression baseline: 82 tests passed; `npm run typecheck` and `npm run build` passed. Mobile browser evidence is stored in `docs/submission/screenshots/expert-audit-2026-08-30/`.
 
 ## Current risks and next task
 
@@ -100,6 +107,8 @@ Simulated or not yet validated:
 - No real hardware timing, thermal-response, comfort, or safety evidence exists yet.
 - The fixed demo dataset is intentionally small and should not be generalized to population performance.
 - Similar-episode feedback persistence in this static demo is session-scoped; there is no account or durable backend database.
+- Current validation contains only 5 fixed synthetic scenarios / 30 zone decisions; the new UI makes this visible, but the dataset is still too small for population or field claims.
+- Real-world readiness still requires sensor placement calibration, clock synchronization, contact-loss/gap analysis, hardware safety verification, and prospective human-subject testing.
 - Marker placement is calibrated to the current supplied sleep image and would need remapping if the photography changes.
 - Legacy V1 reference screenshots remain archived but no longer define the active visual system.
 - Next: stop feature work and wait for product-owner review. Any subsequent change should be a confirmed release defect only.

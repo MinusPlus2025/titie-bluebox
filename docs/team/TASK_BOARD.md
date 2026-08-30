@@ -68,6 +68,12 @@
 - [x] Replaced unnatural sleep-history counters and AI/translation-like phrases across day/week/month history, feedback, My-page panels, and RegionSheet explanations.
 - [x] Added user-language and RegionSheet loading-fallback regression contracts; final local baseline is 77/77 tests plus passing typecheck/build and a 390 × 844 no-overflow browser pass.
 - [x] Rewrote “关于体贴” as a formal product introduction with an explicit prototype/hardware boundary, preserved the existing About Sheet design, and added an exact-copy regression contract; final local baseline is 78/78 tests plus passing typecheck/build.
+- [x] Completed a sleep-engineering/product expert audit of the primary flow, sensor-degraded behavior, feedback truthfulness, validation evidence framing, accessibility, and responsive presentation.
+- [x] Replaced sensor-implied “偏热/偏凉” copy with preference-language actions and added an always-visible Home simulation boundary.
+- [x] Fixed failed-feedback confirmation so the product only says “记住了” after a successful personalization API response.
+- [x] Added native button/dialog/tab semantics, Escape close, keyboard focus visibility, and reduced-motion safeguards without redesigning the approved Eazo visual system.
+- [x] Added fixed synthetic sample scope, metric counts, definitions, and percentage-point Personalization Gain to Technical Validation.
+- [x] Added four expert-hardening regression tests and completed 390 × 844 browser checks for Home, RegionSheet, DEGRADED, Feedback, and Validation; final baseline is 82/82 tests plus passing typecheck/build.
 
 ## Blocked
 
@@ -76,3 +82,4 @@
 ## Next
 
 - Stop feature and visual work; wait for the next product-owner screen review.
+- Before any claim beyond prototype behavior, design a separate real-hardware/field-validation protocol; do not expand the frozen core from the current synthetic results.
