@@ -8,6 +8,7 @@
 - Technical Validation now exposes its fixed scope (5 synthetic scenarios / 30 zone decisions), metric counts, definitions, and percentage-point Personalization Gain.
 - Primary controls are native buttons/tabs; RegionSheet is a keyboard-addressable dialog with Escape close; focus-visible and reduced-motion safeguards are present.
 - Verification: `npm test` → 82 passed; `npm run typecheck` → passed; `npm run build` → passed. Browser captures are in `docs/submission/screenshots/expert-audit-2026-08-30/`.
+- Release commit `0ad06f3` is active in Production. Online checks confirmed `原型模拟 · 每5分钟更新一次`, the 5-scenario/30-decision validation scope, and `+3.3 个百分点` at the existing public URL.
 - Remaining boundary: real sensor/actuator integration, time synchronization, placement calibration, safety verification, and prospective field/human validation are not implemented and must not be inferred from this prototype.
 - Next owner action: review this bounded hardening release. Do not add algorithm complexity from the current five-scenario synthetic dataset.
 

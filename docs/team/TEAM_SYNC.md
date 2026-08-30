@@ -100,6 +100,7 @@ Simulated or not yet validated:
 - Technical Validation now states the fixed evidence scope (`5个合成场景 · 30个区域判断`), displays numerator/denominator with rates, and reports Personalization Gain in percentage points.
 - Native buttons, dialog semantics, Escape close, visible keyboard focus, and reduced-motion support were added to the primary product flow while preserving the approved visual composition.
 - Expert-hardening regression baseline: 82 tests passed; `npm run typecheck` and `npm run build` passed. Mobile browser evidence is stored in `docs/submission/screenshots/expert-audit-2026-08-30/`.
+- Expert-hardening release commit `0ad06f3` is published on `main` and active at `https://titie-bluebox.vercel.app/`; Production checks confirmed the new Home simulation label and fixed Validation scope/percentage-point display.
 
 ## Current risks and next task
 
