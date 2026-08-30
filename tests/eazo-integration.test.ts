@@ -7,7 +7,9 @@ import { engineSheet } from "../src/eazo/data/engine-view.js";
 import { evaluateThermalPreference } from "../src/api/services.js";
 import { BODY_MARKER_POSITIONS } from "../src/eazo/components/HomeScreen.jsx";
 import RegionSheet from "../src/eazo/components/RegionSheet.jsx";
-import { feedbackRegions, mePanels, monthStats, regions, sessions, weekStats } from "../src/eazo/data/content.js";
+import FeedbackScreen from "../src/eazo/components/FeedbackScreen.jsx";
+import SleepScreen from "../src/eazo/components/SleepScreen.jsx";
+import { feedback, feedbackRegions, mePanels, monthStats, regions, sessions, weekStats } from "../src/eazo/data/content.js";
 import ValidationScreen, { formatValidationRate } from "../src/eazo/components/ValidationScreen.jsx";
 
 const fallback = {
@@ -20,6 +22,18 @@ const fallback = {
 };
 
 describe("Eazo frontend integration", () => {
+  it("uses natural night-based Chinese across sleep history and feedback", () => {
+    const sleepHtml = renderToStaticMarkup(createElement(SleepScreen, { onOpenFeedback: () => undefined }));
+    const feedbackHtml = renderToStaticMarkup(createElement(FeedbackScreen, { onClose: () => undefined }));
+    const ordinaryCopy = JSON.stringify({ sessions, weekStats, monthStats, feedback, mePanels });
+
+    expect(sleepHtml).toContain("夜间记录");
+    expect(sleepHtml).toContain("冷暖调节");
+    expect(feedbackHtml).toContain("睡醒了。");
+    expect(feedbackHtml).toContain("如果再遇到这样的情况，你希望这里？");
+    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype|Simulation|Digital Twin/);
+  });
+
   it("anchors the shoulder marker on the visible upper-back area", () => {
     expect(BODY_MARKER_POSITIONS.shoulder).toEqual({ top: "25.5%", left: "76%" });
   });

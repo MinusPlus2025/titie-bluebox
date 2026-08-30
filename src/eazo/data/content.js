@@ -71,7 +71,7 @@ function stableSheet(region) {
   return {
     region,
     dir: '刚刚好',
-    lead: ['局部状态保持稳定。', '目前没有足够理由进行主动干预。'],
+    lead: ['这里目前比较稳定。', '没有足够理由主动调整。'],
     action: { text: '保持刚刚好', time: '暂不调节' },
     hint: '5分钟后再看看。',
     evidence: [
@@ -88,68 +88,68 @@ export const sessions = [{
   date: '8月27日',
   range: '23:54 – 06:41',
   duration: '6小时47分',
-  summary: '这一觉，足部短暂需要暖一点，其余时间保持稳定。',
-  caredZones: '足部 · 1次暖一点 · 其余时间HOLD',
+  summary: '大部分时间都很稳定，夜里足部短暂需要暖一点。',
+  caredZones: '足部 · 1次暖一点 · 其余时间未调整',
   feedback: '足部 · 刚刚好',
   timeline: [
-    { time: '23:54', text: '开始睡', tone: 'steady' },
+    { time: '23:54', text: '入睡', tone: 'steady' },
     { time: '02:08', text: '足部暖一点', tone: 'warm' },
     { time: '02:16', text: '回到刚刚好', tone: 'steady' },
-    { time: '06:41', text: '这一觉结束', tone: 'steady' },
+    { time: '06:41', text: '醒来', tone: 'steady' },
   ],
 }, {
   date: '8月28日',
   range: '00:18 – 07:06',
   duration: '6小时48分',
-  summary: '这一觉，肩背短暂凉一点，翻身时选择先观察。',
-  caredZones: '肩背 · 1次凉一点 · 2次HOLD观察',
+  summary: '夜里肩背短暂需要凉一点；翻身后数据还不稳定，所以先观察。',
+  caredZones: '肩背 · 1次凉一点 · 2次先观察',
   feedback: '肩背 · 凉一点',
   timeline: [
-    { time: '00:18', text: '开始睡', tone: 'steady' },
+    { time: '00:18', text: '入睡', tone: 'steady' },
     { time: '02:46', text: '肩背凉一点', tone: 'cool' },
     { time: '02:52', text: '回到刚刚好', tone: 'steady' },
-    { time: '04:31', text: '翻身，先观察', tone: 'steady' },
-    { time: '07:06', text: '这一觉结束', tone: 'steady' },
+    { time: '04:31', text: '翻身后，先观察', tone: 'steady' },
+    { time: '07:06', text: '醒来', tone: 'steady' },
   ],
 }, {
   date: '8月29日',
   range: '00:42 – 07:18',
   duration: '6小时36分',
-  summary: '这一觉，大部分时间冷暖都很稳定。',
-  caredZones: '膝腿、肩背 · 2次局部调整 · HOLD占大多数时间',
+  summary: '大部分时间冷暖都很稳定，只做了两次局部调整。',
+  caredZones: '膝腿、肩背 · 2次局部调整 · 其余时间未调整',
   feedback: '膝腿 · 暖一点',
   timeline: [
-    { time: '00:42', text: '开始睡', tone: 'steady' },
+    { time: '00:42', text: '入睡', tone: 'steady' },
     { time: '01:26', text: '膝腿暖一点', tone: 'warm' },
     { time: '01:34', text: '回到刚刚好', tone: 'steady' },
     { time: '03:18', text: '肩背凉一点', tone: 'cool' },
     { time: '03:24', text: '回到刚刚好', tone: 'steady' },
-    { time: '05:02', text: '翻身，先观察', tone: 'steady' },
-    { time: '05:09', text: '重新判断', tone: 'steady' },
-    { time: '07:18', text: '这一觉结束', tone: 'steady' },
+    { time: '05:02', text: '翻身后，先观察', tone: 'steady' },
+    { time: '05:09', text: '恢复判断', tone: 'steady' },
+    { time: '07:18', text: '醒来', tone: 'steady' },
   ],
 }]
 
 export const session = sessions[2]
 
 export const weekStats = {
-  lead: '5觉大部分时间冷暖都很稳定',
+  lead: '最近一周，大多数夜晚冷暖都很稳定。',
   rows: [
-    ['最常需要照顾', '膝腿'],
-    ['最近更常希望', '暖一点'],
+    ['最常需要调整', '膝腿'],
+    ['最近更偏向', '暖一点'],
   ],
-  foot: '大部分时间，体贴选择保持不动。',
+  foot: '大部分时间状态稳定，体贴没有主动调整。',
 }
 
 export const monthStats = {
-  lead: '最近30天，局部调整保持克制',
+  lead: '最近30天，大部分时间不需要主动调整。',
   rows: [
-    ['最常需要照顾', '膝腿'],
-    ['暖一点 / 凉一点 / HOLD', '12% / 7% / 81%'],
-    ['相似状态学习', '9次'],
-    ['最近偏好变化', '膝腿更常希望暖一点'],
+    ['最常需要调整', '膝腿'],
+    ['主动调整 / 保持', '19% / 81%'],
+    ['参考过的相似状态', '9次'],
+    ['最近的变化', '膝腿最近更偏向暖一点'],
   ],
-  foot: '这些趋势来自 Prototype Simulation，不代表真实人体或临床效果。',
+  foot: '以上为原型模拟数据，不代表真实人体或临床效果。',
 }
 
 // SCREEN 4 我的
@@ -173,17 +173,17 @@ export const mine = {
 
 // SCREEN 5 反馈
 export const feedback = {
-  title: '这一觉结束了。',
-  sub: '冷暖还合适吗？',
+  title: '睡醒了。',
+  sub: '这晚的冷暖还合适吗？',
   region: '膝腿',
-  question: '如果再来一次，你希望这里？',
+  question: '如果再遇到这样的情况，你希望这里？',
   choices: [
     { key: 'warm', t: '暖一点', tone: 'warm' },
     { key: 'steady', t: '刚刚好', tone: 'steady' },
     { key: 'cool', t: '凉一点', tone: 'cool' },
   ],
   confirmTitle: '记住了。',
-  confirmSub: '下次遇到相似状态，会把这次选择考虑进去。',
+  confirmSub: '下次遇到相似的情况，会参考你这次的选择。',
 }
 
 export const feedbackRegions = regions.map(({ key, name }) => ({ key, name }))
@@ -206,14 +206,14 @@ export const mePanels = {
   cosleep: { title: '同睡情况（可选）', options: ['独睡', '同睡'], note: '仅作为理解当晚状态的上下文。' },
   device: {
     title: '我的蓝盒子',
-    lines: ['蓝盒子', 'Prototype Device Connection', '模拟连接', '当前原型通过 Digital Twin 模拟真实温控执行。'],
+    lines: ['蓝盒子', '原型设备连接', '模拟连接', '当前原型以模拟方式展示温控执行。'],
   },
   privacy: {
     title: '数据与隐私',
-    lines: ['Prototype 数据仅用于当前体验。', '身体状态信息为可选。', '用户反馈用于相似状态个体化。'],
+    lines: ['当前体验使用原型模拟数据。', '身体状态信息为可选。', '你的冷暖反馈只用于参考相似情况。'],
   },
   about: {
     title: '关于体贴',
-    lines: ['体贴', '知冷暖，好好睡。', '个人睡眠冷暖决策层', 'Prototype Simulation', '黑客松版本。'],
+    lines: ['体贴', '知冷暖，好好睡。', '个人睡眠冷暖调节', '原型模拟', '黑客松版本。'],
   },
 }

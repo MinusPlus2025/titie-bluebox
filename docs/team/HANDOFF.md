@@ -1,5 +1,12 @@
 # HANDOFF
 
+## 2026-08-30 — Full-product Chinese copy review
+
+- Active Eazo user copy has been reviewed end to end; “这一觉”, numeric “觉” counters, user-facing HOLD, “主动干预”, and untranslated Prototype/Digital Twin fallback text were removed from ordinary surfaces.
+- Sleep history now uses direct time ranges, “夜间记录”, “冷暖调节”, natural three-night summaries, and “入睡 / 醒来” timeline endpoints.
+- Feedback, confirmation, similar-situation language, and all My-page informational panels now use concise Chinese while preserving the simulated-evidence boundary.
+- Current local verification: `npm test` → 76 passed; `npm run typecheck` → passed; `npm run build` → passed; 390 × 844 browser QA found zero horizontal overflow.
+
 ## 2026-08-30 — Final evidence hierarchy
 
 - RegionSheet now presents a clear human-first decision, an action-specific “为什么” disclosure with 2–4 real-result translations, and a nested six-field technical detail disclosure.

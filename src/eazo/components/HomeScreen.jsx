@@ -77,9 +77,9 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
       <div className="monitor">
         <div className="monitor-inner" onClick={onTurn} role="button" title="演示：翻身后先不调整">
           <span className="mn-pulse" />
-          {degrade ? '正在重新感知 · 保持安静' : '正在监测中 · 每5分钟更新一次'}
+          {degrade ? '接触正在恢复 · 暂时不调' : '正在监测中 · 每5分钟更新一次'}
         </div>
-        {apiFallback && <div className="api-fallback">Prototype Simulation · API fallback</div>}
+        {apiFallback && <div className="api-fallback">原型模拟 · 暂时使用本地演示数据</div>}
       </div>
     </div>
   )

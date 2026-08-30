@@ -24,7 +24,7 @@ export default function FeedbackScreen({ onClose }) {
         <div className="fc-badge"><Icon name="check" /></div>
         <div className="fcc-t">{fb.confirmTitle}</div>
         <div className="fcc-s">{fb.confirmSub}</div>
-        {apiFallback && <div className="sim-badge">Prototype Simulation · API fallback</div>}
+        {apiFallback && <div className="sim-badge">原型模拟 · 暂时使用本地演示数据</div>}
         <button className="fcc-btn" onClick={onClose}>好的</button>
       </div>
     )
@@ -62,7 +62,7 @@ export default function FeedbackScreen({ onClose }) {
       </div>
 
       <button className="fb-submit" disabled={!sel || sending} onClick={submit}>
-        {sending ? '正在提交…' : '提交'}
+        {sending ? '正在保存…' : '确认'}
       </button>
     </div>
   )

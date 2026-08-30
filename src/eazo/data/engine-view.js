@@ -23,9 +23,9 @@ const USER_REASON_COPY = {
   LOCAL_TEMP_FALLING: '这里最近在慢慢变凉',
   LOCAL_TEMP_RISING: '这里最近在慢慢变热',
   HUMIDITY_RISING: '这里的湿度正在上升',
-  PERSONAL_WARM_PATTERN: '在和现在相似的状态下，你过去更常希望这里暖一点',
-  PERSONAL_COOL_PATTERN: '在和现在相似的状态下，你过去更常希望这里凉一点',
-  PERSONAL_FEEDBACK_CONFLICT: '过去相似状态下的选择还不够一致',
+  PERSONAL_WARM_PATTERN: '过去遇到相似情况时，你更常选择暖一点',
+  PERSONAL_COOL_PATTERN: '过去遇到相似情况时，你更常选择凉一点',
+  PERSONAL_FEEDBACK_CONFLICT: '过去相似情况里的选择还不一致',
   LOW_CONFIDENCE_HOLD: '目前没有足够理由主动调整',
   HYSTERESIS_HOLD: '变化方向还不够稳定，先避免反复调节',
   MINIMUM_INTERVAL_HOLD: '刚刚已经调节过，先观察一会儿',
@@ -74,8 +74,8 @@ function userReasonsFor(decision) {
       ? '局部湿度没有明显变化'
       : mapped.find((reason) => reason.includes('湿度'))
     const personalReason = (diagnostics.similarEpisodeCount ?? 0) > 0
-      ? `已有${diagnostics.similarEpisodeCount}个相似状态可供参考`
-      : '还没有足够的相似状态支持主动调节'
+      ? `有${diagnostics.similarEpisodeCount}次相似情况可以参考`
+      : '还没有足够的相似情况可以参考'
     return unique([temperatureReason, humidityReason, '当前接触状态正常', personalReason]).slice(0, 4)
   }
 
@@ -130,7 +130,7 @@ export function engineSheet(decision, fallback) {
     userReasons,
     dataStatus: dataStatusCopy(decision.sensorQuality),
     confidenceLabel: confidenceCopy(decision.confidence),
-    reevaluateLabel: `${decision.reevaluateAfterMinutes}分钟后重新判断`,
+    reevaluateLabel: `${decision.reevaluateAfterMinutes}分钟后再看看`,
     technicalEvidence: technicalEvidenceFor(decision),
   }
 }

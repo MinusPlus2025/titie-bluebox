@@ -71,7 +71,7 @@ export default function RegionSheet({ regionKey, decision, onClose }) {
                     ))}
                   </div>
                 </details>
-                <span className="sim-badge"><span className="sb-dot2" />Prototype Simulation · 原型模拟</span>
+                <span className="sim-badge"><span className="sb-dot2" />原型模拟</span>
               </div>
             </details>
           </div>

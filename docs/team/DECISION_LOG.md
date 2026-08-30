@@ -1,5 +1,11 @@
 # DECISION LOG
 
+## 2026-08-30 — Use night-based Chinese on ordinary product surfaces
+
+Decision: describe sleep history with dates, nights, and direct events rather than treating “觉” as a counter or repeatedly saying “这一觉”. Ordinary surfaces use concise Chinese such as “夜间记录”, “冷暖调节”, “最近一周”, and “参考过的相似状态”.
+
+Boundary: backend field names and technical terms remain unchanged. Raw enums and engineering identifiers stay in Technical Details and `/validation`; ordinary pages translate the same underlying results without hiding the Prototype Simulation boundary.
+
 ## 2026-08-30 — Separate human reasoning from engineering evidence
 
 Decision: keep the existing Bottom Sheet and visual composition, but divide RegionSheet evidence into three progressive layers: human decision/action, dynamic natural-language reasons derived from the real Engine result, and a nested technical detail disclosure. Raw Engine action, ControlCommand, Sensor Quality enums, and reason codes belong only on Technical Validation.
