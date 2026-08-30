@@ -7,6 +7,7 @@
 - About, device/privacy, month history, and Home monitoring use natural demonstration-language while preserving the no-real-hardware boundary.
 - Frozen domain modules and `/api/evaluate` behavior are unchanged.
 - Verification: `npm test` → 82 passed; `npm run typecheck` → passed; `npm run build` → passed; `git diff --check` → passed. Browser QA at 390 × 844 confirmed no banned engineering terms on Home, expanded RegionSheet, About, or public Validation.
+- Release commit `2a1b72e` is active in Production; online checks confirmed both the Home and `/validation` information boundaries.
 - Next owner action: review the simplified information hierarchy. Further changes should remain copy/presentation-only unless a reproducible core defect is found.
 
 ## 2026-08-30 — Expert safety and evidence hardening

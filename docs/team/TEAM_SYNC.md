@@ -105,6 +105,7 @@ Simulated or not yet validated:
 - Public `/validation` is now a plain-language “调节方式对比” surface. It keeps the real Validation Runner results and the honest 5-scenario/30-decision demonstration scope, but removes the live raw decision/diagnostic dump and internal enums.
 - Home, device/privacy panels, month history, and About use `演示数据 / 演示版本 / 体验模式` instead of prototype, simulation, architecture, or API language. The real-versus-demonstration boundary remains explicit.
 - User-boundary regression baseline: 82 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. A 390 × 844 browser pass covered Home, expanded RegionSheet, About, and `/validation`.
+- User-boundary release commit `2a1b72e` is active at `https://titie-bluebox.vercel.app/`. Production checks confirmed the natural Home boundary and the raw-engine-free public comparison page.
 
 ## Current risks and next task
 
