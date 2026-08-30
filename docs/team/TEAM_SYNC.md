@@ -1,7 +1,7 @@
 # TEAM SYNC
 
 Last updated: 2026-08-30
-Current phase: Final Release — user/engineering evidence hierarchy complete
+Current phase: Final Release — product copy and About boundary complete
 
 ## Verified baseline
 
@@ -90,6 +90,8 @@ Simulated or not yet validated:
 - The evidence-hierarchy release is published on `main` in commit `db82bcf` and active at `https://titie-bluebox.vercel.app/`. Production verification confirmed the human-first RegionSheet, live Technical Validation example, Prototype Simulation label, and zero browser console warnings/errors.
 - Full-product Chinese copy review completed across 体贴, 好好睡, 睡后反馈, 我的, and all six RegionSheets. Unnatural sleep counters and phrases such as “这一觉”, “5觉”, and user-facing HOLD/Prototype/Digital Twin language were replaced with concise night-based Chinese; engineering terms remain limited to Technical Details and `/validation`.
 - Chinese-copy regression baseline: 77 tests passed; `npm run typecheck` and `npm run build` passed. A 390 × 844 browser pass verified the three night summaries, week/month views, feedback confirmation, all nine My-page panels, six RegionSheets, and zero horizontal overflow. Production QA also exposed and fixed a RegionSheet loading-state crash before final release.
+- “关于体贴” now uses the approved formal product introduction: it explains the regional thermal decision loop, avoids internal architecture/AI/medical claims, and places the prototype/simulation boundary only in the product-boundary and version information. The existing About Sheet visual structure is unchanged.
+- Final copy-release regression baseline: 78 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. Browser QA confirmed the complete About copy, no banned legacy phrases, no extra scrolling, and no horizontal overflow.
 
 ## Current risks and next task
 

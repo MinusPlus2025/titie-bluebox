@@ -31,7 +31,20 @@ describe("Eazo frontend integration", () => {
     expect(sleepHtml).toContain("冷暖调节");
     expect(feedbackHtml).toContain("睡醒了。");
     expect(feedbackHtml).toContain("如果再遇到这样的情况，你希望这里？");
-    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype|Simulation|Digital Twin/);
+    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype Simulation|Digital Twin/);
+  });
+
+  it("presents About as a product introduction with an explicit prototype boundary", () => {
+    expect(mePanels.about.lines).toEqual([
+      "体贴",
+      "知冷暖，好好睡。",
+      "体贴是一套个体化睡眠冷暖决策系统。它结合不同身体区域的温湿度、接触状态和个人反馈，持续判断哪里需要暖一点、凉一点，或暂时保持不变，并把判断转化为分区温控指令。",
+      "体贴不寻找一个适合所有人的“最佳温度”，而是关注同一个人在不同时间、不同身体区域不断变化的冷暖感受。",
+      "当前版本用于验证“感知—判断—调节—反馈”的产品闭环。传感数据与温控执行部分采用原型模拟，尚未接入真实睡眠硬件。",
+      "版本信息",
+      "Hackathon Prototype · 2026",
+    ]);
+    expect(mePanels.about.lines.join(" ")).not.toMatch(/个人睡眠冷暖决策层|Prototype Simulation|AI智能|更懂女性/);
   });
 
   it("renders a natural RegionSheet fallback while live evaluation is loading", () => {

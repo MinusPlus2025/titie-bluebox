@@ -67,6 +67,7 @@
 - [x] Completed the full-product Chinese copy review without changing UI structure, backend fields, Engine, or `/api/evaluate` decisions.
 - [x] Replaced unnatural sleep-history counters and AI/translation-like phrases across day/week/month history, feedback, My-page panels, and RegionSheet explanations.
 - [x] Added user-language and RegionSheet loading-fallback regression contracts; final local baseline is 77/77 tests plus passing typecheck/build and a 390 × 844 no-overflow browser pass.
+- [x] Rewrote “关于体贴” as a formal product introduction with an explicit prototype/hardware boundary, preserved the existing About Sheet design, and added an exact-copy regression contract; final local baseline is 78/78 tests plus passing typecheck/build.
 
 ## Blocked
 

@@ -1,5 +1,13 @@
 # HANDOFF
 
+## 2026-08-30 — About product introduction
+
+- “关于体贴” now uses the product-owner-approved introduction and describes the regional sensing, decision, adjustment, and feedback loop in user-facing language.
+- Internal architecture language and standalone `Prototype Simulation` branding were removed from the introduction. Prototype sensor/actuator limits remain explicit in the product-boundary paragraph and `Hackathon Prototype · 2026` version line.
+- The existing About Sheet component and visual design were not changed; the frozen domain core and `/api/evaluate` behavior remain untouched.
+- Current local verification: `npm test` → 78 passed; `npm run typecheck` → passed; `npm run build` → passed; `git diff --check` → passed. Browser QA confirmed the full copy is present and the sheet has no horizontal overflow.
+- Next owner action: review the released About copy. Do not expand features or redesign the final UI.
+
 ## 2026-08-30 — Full-product Chinese copy review
 
 - Active Eazo user copy has been reviewed end to end; “这一觉”, numeric “觉” counters, user-facing HOLD, “主动干预”, and untranslated Prototype/Digital Twin fallback text were removed from ordinary surfaces.
