@@ -7,6 +7,7 @@
 - Technical Validation now owns the full engineering example and sources it through the existing evaluation service.
 - Frozen domain algorithms and `/api/evaluate` decision logic were not changed.
 - Current local verification: `npm test` → 75 passed; `npm run typecheck` → passed; `npm run build` → passed.
+- Release commit `db82bcf` is active in Production. `/` and `/validation` were rechecked against the new hierarchy with no browser console warnings/errors.
 - Next owner action: review the deployed evidence hierarchy. Do not add features or redesign the final Eazo UI.
 
 ## 2026-08-29 — Final interaction completion

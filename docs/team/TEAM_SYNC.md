@@ -87,6 +87,7 @@ Simulated or not yet validated:
 - Final information-hierarchy optimization: every RegionSheet now separates the primary human decision, 2–4 dynamic natural-language reasons, and a weaker nested technical detail layer. GOOD/DEGRADED/INVALID and confidence values are translated for users; raw action, command, and reason codes no longer appear in the user sheet.
 - Technical Validation now includes a live decision example from the existing `/api/evaluate` path with zone, Sensor Quality, confidence, Engine Action, ControlCommand, reevaluation, diagnostics, raw Reason Codes, and the Prototype Simulation boundary.
 - Information-hierarchy regression baseline: 75 tests passed; `npm run typecheck` and `npm run build` passed. Local 390 × 844 browser checks covered HOLD/WARM/COOL disclosures and the Technical Validation evidence surface.
+- The evidence-hierarchy release is published on `main` in commit `db82bcf` and active at `https://titie-bluebox.vercel.app/`. Production verification confirmed the human-first RegionSheet, live Technical Validation example, Prototype Simulation label, and zero browser console warnings/errors.
 
 ## Current risks and next task
 
