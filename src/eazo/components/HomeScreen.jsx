@@ -36,9 +36,11 @@ export default function HomeScreen({ degrade, decisions, apiFallback, onOpenRegi
         <span className="hud-chip"><Icon name="temp" /><b>{ambient.temp}</b></span>
         <span className="hud-chip"><Icon name="humidity" /><b>{ambient.humidity}</b></span>
         <button type="button" className="theme-toggle" onClick={onToggleTheme}
-          title="切换白天 / 夜晚" aria-label="切换白天夜晚" aria-pressed={theme === 'day'}>
-          <Icon name={theme === 'night' ? 'sun' : 'moondot'} />
-          {theme === 'night' ? '白天' : '夜晚'}
+          title={theme === 'night' ? '切换到白天' : '切换到夜晚'}
+          aria-label={theme === 'night' ? '当前夜晚，切换到白天' : '当前白天，切换到夜晚'}
+          aria-pressed={theme === 'day'}>
+          <span className="theme-mode-icon" aria-hidden="true"><Icon name={theme === 'night' ? 'moondot' : 'sun'} /></span>
+          <span className="theme-mode-label">{theme === 'night' ? '夜晚' : '白天'}</span>
         </button>
       </div>
 

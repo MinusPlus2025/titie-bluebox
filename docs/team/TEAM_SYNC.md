@@ -106,6 +106,8 @@ Simulated or not yet validated:
 - Home, device/privacy panels, month history, and About use `演示数据 / 演示版本 / 体验模式` instead of prototype, simulation, architecture, or API language. The real-versus-demonstration boundary remains explicit.
 - User-boundary regression baseline: 82 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. A 390 × 844 browser pass covered Home, expanded RegionSheet, About, and `/validation`.
 - User-boundary release commit `2a1b72e` is active at `https://titie-bluebox.vercel.app/`. Production checks confirmed the natural Home boundary and the raw-engine-free public comparison page.
+- Day/night control semantics corrected: the capsule now shows the current state (`夜晚` with moon / `白天` with sun), while its accessible label states the destination. The refined 44px control keeps a clear icon well, restrained surface contrast, and zero overflow at 390px and 320px.
+- Theme-control regression baseline remains 82 tests passed with typecheck/build/diff checks passing.
 
 ## Current risks and next task
 

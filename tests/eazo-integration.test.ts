@@ -64,7 +64,7 @@ describe("Eazo frontend integration", () => {
   });
 
   it("uses preference language and an always-visible simulation boundary on Home", () => {
-    const html = renderToStaticMarkup(createElement(HomeScreen, {
+    const nightHtml = renderToStaticMarkup(createElement(HomeScreen, {
       degrade: false,
       decisions: { shoulder: { action: "COOL" }, knee: { action: "WARM" } },
       apiFallback: false,
@@ -73,12 +73,24 @@ describe("Eazo frontend integration", () => {
       theme: "night",
       onToggleTheme: () => undefined,
     }));
+    const dayHtml = renderToStaticMarkup(createElement(HomeScreen, {
+      degrade: false,
+      decisions: { shoulder: { action: "COOL" }, knee: { action: "WARM" } },
+      apiFallback: false,
+      onOpenRegion: () => undefined,
+      onTurn: () => undefined,
+      theme: "day",
+      onToggleTheme: () => undefined,
+    }));
 
-    expect(html).toContain("想凉一点");
-    expect(html).toContain("想暖一点");
-    expect(html).toContain("演示数据 · 每5分钟更新一次");
-    expect(html).not.toMatch(/偏热|偏凉|正在监测中/);
-    expect(html).toContain("<button");
+    expect(nightHtml).toContain("想凉一点");
+    expect(nightHtml).toContain("想暖一点");
+    expect(nightHtml).toContain("演示数据 · 每5分钟更新一次");
+    expect(nightHtml).not.toMatch(/偏热|偏凉|正在监测中/);
+    expect(nightHtml).toContain('aria-label="当前夜晚，切换到白天"');
+    expect(nightHtml).toContain('<span class="theme-mode-label">夜晚</span>');
+    expect(dayHtml).toContain('aria-label="当前白天，切换到夜晚"');
+    expect(dayHtml).toContain('<span class="theme-mode-label">白天</span>');
   });
 
   it("gives overlays, segmented controls, and feedback choices native accessible semantics", () => {

@@ -1,5 +1,11 @@
 # DECISION LOG
 
+## 2026-08-30 — Theme capsule communicates current state
+
+Decision: the Home theme capsule displays the mode the user is currently seeing: moon + `夜晚` on the night surface and sun + `白天` on the day surface. The button title and accessible label explain the destination (`切换到白天 / 切换到夜晚`).
+
+Reason: destination-only visible labels made the visually correct themes appear reversed. Separating visible state from the action description removes the ambiguity without changing the theme system.
+
 ## 2026-08-30 — Internal evidence is not user-interface content
 
 Decision: users see the thermal result, natural-language reasons, the current action, data availability, and when the product will look again. They do not see confidence percentages, raw sensor enums, feature slopes, zone deltas, similar-episode counts, Engine actions, ControlCommand fields, raw reason codes, API wording, or algorithm names.

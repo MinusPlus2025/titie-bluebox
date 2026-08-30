@@ -1,5 +1,12 @@
 # HANDOFF
 
+## 2026-08-30 — Day/night capsule correction
+
+- The theme implementation was not reversed; the former visible label described the destination and therefore looked reversed.
+- The capsule now shows the current state with matching icon, while title/ARIA copy describes the next action.
+- Its surface, icon well, spacing, and contrast were refined within the existing Blue Box visual system; the touch target is 44px high.
+- Verification: 82 tests passed; typecheck/build/diff checks passed; 390px and 320px browser checks found zero horizontal overflow.
+
 ## 2026-08-30 — User-facing information boundary
 
 - RegionSheet now ends after human-readable reasons and a simple data-state/reevaluation summary. Internal evidence remains available to code, APIs, tests, and domain debugging but is not rendered in the product UI.

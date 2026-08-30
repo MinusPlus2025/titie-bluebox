@@ -78,6 +78,7 @@
 - [x] Reframed the public Validation page as a plain-language adjustment comparison and removed raw Engine, sensor, command, diagnostic, and reason-code fields.
 - [x] Rewrote Home boundary, device/privacy, month-history, and About copy to use natural `演示数据 / 演示版本 / 体验模式` language without hiding the simulated-product boundary.
 - [x] Added regression guards that reject internal engineering terms on ordinary and public validation surfaces; verified 82/82 tests plus passing typecheck/build and 390 × 844 browser QA.
+- [x] Corrected the day/night capsule to display current state rather than destination-only copy; polished its shape, icon hierarchy, contrast, and 44px touch target; verified at 390px and 320px with zero overflow.
 
 ## Blocked
 
