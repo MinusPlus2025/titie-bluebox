@@ -112,6 +112,7 @@ Simulated or not yet validated:
 - Full-product language and layout pass completed for sleep history, feedback, personal-context settings, and RegionSheet explanations. Copy now describes observable changes and user choices in short sentences, avoids system-report phrasing, and keeps optional body context explicitly under the user's control.
 - The sleep adjustment card now uses a stable two-column grid: labels remain intact while long values wrap only in the value column. Browser verification at 390 × 844 confirmed complete text, one-line labels, and zero horizontal overflow.
 - Language/layout regression baseline: 83 tests passed; `npm run typecheck`, `npm run build`, and `git diff --check` passed. The frozen Engine, Sensor Quality, Control Contract, Similar Episode Personalization, Validation Runner, and API decision logic were not changed.
+- Copy/layout release commit `5b79958` is active at `https://titie-bluebox.vercel.app/`. Production verification confirmed the new summary, “夜间调整” label, and “接触恢复稳定” timeline copy, with the obsolete broken label absent.
 
 ## Current risks and next task
 

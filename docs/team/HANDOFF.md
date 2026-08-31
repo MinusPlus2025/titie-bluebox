@@ -74,6 +74,7 @@
 - Feedback asks “下次遇到相似的情况，你希望这里怎么调？”, and optional body-context panels make user choice explicit without stereotypes or deterministic rules.
 - RegionSheet data-state and confidence translations are expressed as calm observation language; the underlying Engine output and `/api/evaluate` decision logic are unchanged.
 - Verification: `npm test` → 83 passed; `npm run typecheck` → passed; `npm run build` → passed; `git diff --check` → passed. Browser QA at 390 × 844 confirmed intact labels, complete text, and zero horizontal overflow.
+- Release commit `5b79958` is published on `main` and active in Production. Online DOM verification confirmed the new summary, labels, and timeline copy.
 
 ## Read first
 
