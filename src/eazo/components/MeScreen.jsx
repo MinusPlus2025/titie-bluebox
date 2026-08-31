@@ -48,7 +48,7 @@ export default function MeScreen() {
 
       <div className="group">
         <div className="group-t">我的身体状态</div>
-        <div className="group-note">可选，用于帮助理解不同状态，不会单独决定怎么调节。</div>
+        <div className="group-note">是否填写由你决定。这里只作为当晚情况的参考。</div>
         <div className="list-card">
           {mine.bodyOptional.map((r) => <Row key={r.t} {...rowProps(r)} optional />)}
         </div>

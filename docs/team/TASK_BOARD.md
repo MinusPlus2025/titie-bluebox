@@ -79,6 +79,9 @@
 - [x] Rewrote Home boundary, device/privacy, month-history, and About copy to use natural `演示数据 / 演示版本 / 体验模式` language without hiding the simulated-product boundary.
 - [x] Added regression guards that reject internal engineering terms on ordinary and public validation surfaces; verified 82/82 tests plus passing typecheck/build and 390 × 844 browser QA.
 - [x] Corrected the day/night capsule to display current state rather than destination-only copy; polished its shape, icon hierarchy, contrast, and 44px touch target; verified at 390px and 320px with zero overflow.
+- [x] Completed a second full-product Chinese copy pass focused on natural, respectful, non-system language across sleep records, feedback, optional body context, and user-facing Engine reason translations.
+- [x] Rebuilt the sleep adjustment summary as a non-breaking label/value grid and verified the previously broken “局部调节” area at 390 × 844.
+- [x] Added regression coverage for the revised copy contract and narrow-layout label integrity; final baseline is 83/83 tests plus passing typecheck/build/diff checks.
 
 ## Blocked
 

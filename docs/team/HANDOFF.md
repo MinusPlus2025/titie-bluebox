@@ -67,6 +67,14 @@
 - Real/simulated boundary is unchanged: logic and API wiring are real software; sensors, feedback episodes, actuator execution, and validation ground truth remain Prototype Simulation.
 - Next owner action: review the deployed interaction-complete Eazo flow. Do not add features or alter the frozen core without a confirmed defect.
 
+## 2026-08-31 — Natural-language and summary-layout pass
+
+- Sleep summaries and timelines now use natural event language such as “轻轻暖了一下”, “稍微凉了一点”, and “接触恢复稳定”.
+- The adjustment card labels are now “夜间调整 / 你的反馈”; a two-column grid prevents label breakage while preserving complete right-column copy.
+- Feedback asks “下次遇到相似的情况，你希望这里怎么调？”, and optional body-context panels make user choice explicit without stereotypes or deterministic rules.
+- RegionSheet data-state and confidence translations are expressed as calm observation language; the underlying Engine output and `/api/evaluate` decision logic are unchanged.
+- Verification: `npm test` → 83 passed; `npm run typecheck` → passed; `npm run build` → passed; `git diff --check` → passed. Browser QA at 390 × 844 confirmed intact labels, complete text, and zero horizontal overflow.
+
 ## Read first
 
 1. `AGENTS.md`

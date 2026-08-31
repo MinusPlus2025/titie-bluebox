@@ -26,18 +26,18 @@ const USER_REASON_COPY = {
   PERSONAL_WARM_PATTERN: '过去遇到相似情况时，你更常选择暖一点',
   PERSONAL_COOL_PATTERN: '过去遇到相似情况时，你更常选择凉一点',
   PERSONAL_FEEDBACK_CONFLICT: '过去相似情况里的选择还不一致',
-  LOW_CONFIDENCE_HOLD: '目前没有足够理由主动调整',
+  LOW_CONFIDENCE_HOLD: '目前还看不出需要调整',
   HYSTERESIS_HOLD: '变化方向还不够稳定，先避免反复调节',
   MINIMUM_INTERVAL_HOLD: '刚刚已经调节过，先观察一会儿',
   SENSOR_QUALITY_DEGRADED: '刚刚的信号还不够稳定，先继续观察',
-  SENSOR_DATA_INVALID: '当前数据不足以安全调节，已经暂停动作',
+  SENSOR_DATA_INVALID: '暂时读不到稳定数据，先不调整',
   STABLE_LOCAL_STATE: '这里最近的状态比较稳定',
 }
 
 function dataStatusCopy(status) {
-  if (status === 'DEGRADED') return '数据暂时不稳定'
-  if (status === 'INVALID') return '当前数据不可用'
-  return '数据状态正常'
+  if (status === 'DEGRADED') return '接触信号暂时不稳'
+  if (status === 'INVALID') return '暂时没有可用信号'
+  return '当前信号稳定'
 }
 
 function technicalDataStatus(status) {
@@ -47,9 +47,9 @@ function technicalDataStatus(status) {
 }
 
 function confidenceCopy(confidence) {
-  if (confidence < 0.6) return '当前依据不足'
-  if (confidence < 0.8) return '当前判断较明确'
-  return '当前判断明确'
+  if (confidence < 0.6) return '还需要再观察'
+  if (confidence < 0.8) return '判断依据比较充分'
+  return '判断依据充分'
 }
 
 function unique(items) {
@@ -61,7 +61,7 @@ function userReasonsFor(decision) {
     return ['刚刚的信号还不够稳定，先继续观察', '当前不会主动调节']
   }
   if (decision.sensorQuality === 'INVALID') {
-    return ['当前数据不足以安全调节，已经暂停动作', '恢复稳定数据前不会主动调节']
+    return ['暂时读不到稳定数据，先不调整', '信号恢复稳定前不会主动调节']
   }
 
   const diagnostics = decision.diagnostics || {}
@@ -76,10 +76,10 @@ function userReasonsFor(decision) {
     const personalReason = (diagnostics.similarEpisodeCount ?? 0) > 0
       ? `有${diagnostics.similarEpisodeCount}次相似情况可以参考`
       : '还没有足够的相似情况可以参考'
-    return unique([temperatureReason, humidityReason, '当前接触状态正常', personalReason]).slice(0, 4)
+    return unique([temperatureReason, humidityReason, '这里的接触稳定', personalReason]).slice(0, 4)
   }
 
-  return unique([...mapped, '当前接触状态正常']).slice(0, 4)
+  return unique([...mapped, '这里的接触稳定']).slice(0, 4)
 }
 
 function ensureSentence(text) {
@@ -88,10 +88,10 @@ function ensureSentence(text) {
 
 function primaryLeadFor(decision, userReasons) {
   if (decision.sensorQuality === 'DEGRADED') return ['刚刚的信号还不够稳定，先继续观察。']
-  if (decision.sensorQuality === 'INVALID') return ['当前数据不足以安全调节，已经暂停动作。']
+  if (decision.sensorQuality === 'INVALID') return ['暂时读不到稳定数据，先不调整。']
   if (decision.action === 'HOLD') {
     const stable = Math.abs(decision.diagnostics?.skinTempSlopePerMinute ?? 0) <= 0.005
-    return [stable ? '这里目前比较稳定。' : ensureSentence(userReasons[0]), '没有足够理由主动调整。']
+    return [stable ? '这里目前比较稳定。' : ensureSentence(userReasons[0]), '先不调整，再观察一会儿。']
   }
   return userReasons.slice(0, 2).map(ensureSentence)
 }

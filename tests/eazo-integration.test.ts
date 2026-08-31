@@ -31,8 +31,17 @@ describe("Eazo frontend integration", () => {
     expect(sleepHtml).toContain("夜间记录");
     expect(sleepHtml).toContain("冷暖调节");
     expect(feedbackHtml).toContain("睡醒了。");
-    expect(feedbackHtml).toContain("如果再遇到这样的情况，你希望这里？");
-    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|Prototype Simulation|Digital Twin|决策系统|温控指令|产品闭环|原型模拟|Hackathon Prototype/);
+    expect(feedbackHtml).toContain("下次遇到相似的情况，你希望这里怎么调？");
+    expect(sessions[2]!.summary).toBe("大部分时间都很稳定。膝腿和肩背各调整了1次。");
+    expect(sessions[2]!.timeline.map(({ text }) => text)).toContain("接触恢复稳定");
+    expect(ordinaryCopy).not.toMatch(/这一觉|[0-9]+觉|HOLD|主动干预|恢复判断|Prototype Simulation|Digital Twin|决策系统|温控指令|产品闭环|原型模拟|Hackathon Prototype/);
+  });
+
+  it("keeps sleep-summary labels intact beside longer natural-language values", () => {
+    const css = readFileSync(new URL("../src/eazo/styles.css", import.meta.url), "utf8");
+    expect(css).toMatch(/\.stat-row\{[^}]*grid-template-columns:max-content minmax\(0,1fr\)/);
+    expect(css).toMatch(/\.stat-l\{[^}]*white-space:nowrap/);
+    expect(css).toMatch(/\.stat-v\{[^}]*min-width:0[^}]*text-align:right/);
   });
 
   it("presents About in user language with a plain product boundary", () => {
@@ -166,7 +175,7 @@ describe("Eazo frontend integration", () => {
 
     expect(html).toContain('<details class="disclose">');
     expect(html).toContain("为什么先不调");
-    expect(html).toContain("数据状态正常");
+    expect(html).toContain("当前信号稳定");
     expect(html).not.toMatch(/技术详情|温度变化率|局部与身体温差|相似状态数量|ControlCommand|Engine action|LOW_CONFIDENCE_HOLD|>GOOD<|原型模拟/);
   });
 
@@ -185,12 +194,12 @@ describe("Eazo frontend integration", () => {
     const degraded = engineSheet(evaluateThermalPreference(evaluationPayload("knee", "DEGRADED")), fallback);
     const invalid = engineSheet(evaluateThermalPreference(evaluationPayload("knee", "INVALID")), fallback);
 
-    expect(good.dataStatus).toBe("数据状态正常");
-    expect(good.confidenceLabel).toBe("当前依据不足");
-    expect(degraded.dataStatus).toBe("数据暂时不稳定");
+    expect(good.dataStatus).toBe("当前信号稳定");
+    expect(good.confidenceLabel).toBe("还需要再观察");
+    expect(degraded.dataStatus).toBe("接触信号暂时不稳");
     expect(degraded.userReasons.join(" ")).toContain("先继续观察");
-    expect(invalid.dataStatus).toBe("当前数据不可用");
-    expect(invalid.lead.join(" ")).toContain("已经暂停动作");
+    expect(invalid.dataStatus).toBe("暂时没有可用信号");
+    expect(invalid.lead.join(" ")).toContain("先不调整");
   });
 
   it("keeps raw engineering evidence out of the public validation surface", () => {
@@ -238,13 +247,13 @@ describe("Eazo frontend integration", () => {
     expect(decision).toMatchObject({ sensorQuality: "DEGRADED", action: "HOLD", intensity: 0, durationMinutes: 0 });
     const sheet = engineSheet(decision, fallback);
     expect(sheet.dir).toBe("先不调整，继续观察");
-    expect(sheet.dataStatus).toBe("数据暂时不稳定");
+    expect(sheet.dataStatus).toBe("接触信号暂时不稳");
     expect(sheet.lead.join(" ")).toContain("先继续观察");
   });
 
   it("renders INVALID as a safe stop using the same engine decision", () => {
     const decision = evaluateThermalPreference(evaluationPayload("knee", "INVALID"));
     expect(decision).toMatchObject({ sensorQuality: "INVALID", action: "HOLD", intensity: 0, durationMinutes: 0 });
-    expect(engineSheet(decision, fallback).lead.join(" ")).toContain("已经暂停动作");
+    expect(engineSheet(decision, fallback).lead.join(" ")).toContain("先不调整");
   });
 });

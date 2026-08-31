@@ -97,3 +97,11 @@ Reason: This preserves the existing TypeScript import graph and keeps the tested
 Decision: Use an off-white textile ground, deep green ink, restrained amber/mineral-blue state accents, editorial typography, and a central non-medical body contour. Avoid gradients, HUD language, dashboard density, pink stereotypes, and diagnostic heatmaps.
 
 Reason: The product must feel quiet, exact, human, and sleep-oriented while keeping state legible without letting engineering information dominate.
+
+## 2026-08-31 — User copy describes the night, not the system
+
+Decision: ordinary product surfaces use short, concrete descriptions of what changed, what was adjusted, and what the user chose. Internal-report phrases such as “恢复判断”, technical confidence wording, and compressed data-like summaries are replaced with natural Chinese. Optional body context explicitly states that the user decides whether to provide it.
+
+Layout rule: summary-card labels use a non-breaking first column and a flexible value column. Long values may wrap; labels must not split into single characters.
+
+Boundary: this is a presentation and copy change only. Engine decisions, sensor-quality behavior, personalization evidence, control commands, validation metrics, and backend field names remain unchanged.

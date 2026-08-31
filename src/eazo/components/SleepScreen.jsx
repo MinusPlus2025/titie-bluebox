@@ -47,8 +47,8 @@ export default function SleepScreen({ onOpenFeedback }) {
           </div>
           <div className="section-t">冷暖调节</div>
           <div className="stat-card">
-            <div className="stat-row"><span className="stat-l">局部调节</span><span className="stat-v">{session.caredZones}</span></div>
-            <div className="stat-row"><span className="stat-l">最近反馈</span><span className="stat-v">{session.feedback}</span></div>
+            <div className="stat-row"><span className="stat-l">夜间调整</span><span className="stat-v">{session.caredZones}</span></div>
+            <div className="stat-row"><span className="stat-l">你的反馈</span><span className="stat-v">{session.feedback}</span></div>
           </div>
         </>
       ) : (
@@ -66,7 +66,7 @@ export default function SleepScreen({ onOpenFeedback }) {
 
       {/* 轻量入口：睡后反馈（不在底部导航里） */}
       <button type="button" className="fb-entry" onClick={onOpenFeedback}>
-        <span className="fe-t">睡后反馈 · 说说这晚的冷暖</span>
+        <span className="fe-t">睡后反馈 · 这晚冷暖合适吗？</span>
         <span className="fe-chev"><Icon name="chev" /></span>
       </button>
     </>
